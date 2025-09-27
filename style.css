@@ -1,0 +1,414 @@
+/* Mengatur font dan reset dasar */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* --- NAVIGASI --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav .logo h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #5c3c92;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #5c3c92;
+}
+
+/* --- HEADER / BERANDA --- */
+header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('pdsmaxvi.jpg');
+    height: 90vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0 5%;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+.hero-text .intro {
+    font-style: normal;
+    margin-top: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- PENGATURAN UMUM UNTUK SETIAP BAGIAN --- */
+section {
+    padding: 4rem 5%;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #5c3c92;
+}
+
+/* Section untuk link promosi ke halaman lain */
+.promo-section {
+    background-color: #e8e2f5;
+}
+
+.promo-section p {
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+.btn-utama {
+    background-color: #5c3c92;
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color 0.3s, transform 0.3s;
+    display: inline-block;
+}
+
+.btn-utama:hover {
+    background-color: #4a2f75;
+    transform: translateY(-3px);
+}
+
+/* --- PESAN & KESAN (KARTU) --- */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    text-align: left;
+}
+
+.card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(92, 60, 146, 0.2);
+}
+
+.card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 4px solid #5c3c92;
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+}
+
+/* --- GALERI --- */
+#galeri {
+    background-color: #fff;
+}
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.gallery-container img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.gallery-container img:hover {
+    transform: scale(1.05);
+}
+
+/* --- STYLE UNTUK HEADER HALAMAN PESAN & KUIS --- */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* --- STYLE UNTUK KUIS/GAME --- */
+#timer-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #5c3c92;
+    margin-bottom: 1rem;
+    height: 20px;
+}
+
+.quiz-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#question-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.option-btn {
+    background-color: #f4f4f9;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.option-btn:hover:not([disabled]) {
+    background-color: #e8e2f5;
+    border-color: #5c3c92;
+}
+
+.option-btn.correct {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.option-btn.incorrect {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+#next-btn {
+    margin-top: 2rem;
+    background-color: #5c3c92;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#result-text {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* --- UNTUK TAMPILAN HP (RESPONSIVE) --- */
+@media (max-width: 768px) {
+    /* Atur agar menu navigasi (ul) tersembunyi di awal */
+    .nav-links {
+        position: absolute;
+        right: 0px;
+        top: 60px; /* Sesuaikan dengan tinggi navbar Anda */
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        transform: translateY(-120%); /* Sembunyikan ke atas */
+        transition: transform 0.5s ease-in-out;
+        box-shadow: 0 4px 5px rgba(0,0,0,0.1);
+    }
+    
+    /* Atur jarak antar link di menu mobile */
+    .nav-links li {
+        padding: 1.5rem 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Ini adalah class yang akan ditambahkan oleh JavaScript saat hamburger diklik */
+    .nav-active {
+        transform: translateY(0%); /* Munculkan menu dari atas */
+    }
+
+    /* Styling untuk ikon hamburger (tiga garis) */
+    .hamburger {
+        display: block; /* Munculkan ikon hamburger di mobile */
+        cursor: pointer;
+    }
+    
+    .hamburger .line {
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 5px 0;
+        transition: all 0.3s ease;
+    }
+
+    /* Animasi hamburger menjadi tanda silang (X) saat menu aktif */
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    /* Atur ulang ukuran font judul agar tidak terlalu besar di HP */
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+    section h2, .letter-title {
+        font-size: 2rem;
+    }
+}
+
+/* Sembunyikan ikon hamburger di versi desktop */
+.hamburger {
+    display: none;
+}
+/* --- STYLE BARU UNTUK INPUT FORM DI HALAMAN KUIS --- */
+
+.text-input {
+    width: 100%; /* Lebar penuh */
+    padding: 12px 15px; /* Jarak tulisan di dalam box */
+    font-family: 'Poppins', sans-serif; /* Samakan font */
+    font-size: 1rem;
+    margin-top: 1rem; /* Jarak antar box */
+    border: 2px solid #ddd;
+    border-radius: 8px; /* Sudut membulat */
+    box-sizing: border-box; /* Penting agar padding tidak merusak layout */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.text-input:focus {
+    outline: none; /* Hilangkan outline default */
+    border-color: #5c3c92; /* Warna ungu saat diklik */
+    box-shadow: 0 0 5px rgba(92, 60, 146, 0.3); /* Beri sedikit bayangan saat diklik */
+}
+
+/* Beri jarak tombol submit dari atas */
+#submit-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem; /* Buat tombol lebih besar */
+    font-size: 1.1rem;
+}
+/* --- STYLE HALAMAN SURAT MASA DEPAN --- */
+#future-letter {
+    background-color: #fdfdfa; /* Warna kertas sedikit krem */
+}
+
+.letter-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem;
+    background-color: #fff;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    border-top: 5px solid #5c3c92;
+    text-align: left;
+    font-family: 'Playfair Display', serif; /* Font elegan untuk surat */
+    line-height: 1.8;
+    color: #444;
+}
+
+.letter-title {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.letter-date {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    margin-bottom: 3rem;
+}
+
+.letter-greeting {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.letter-closing {
+    margin-top: 3rem;
+    text-align: right;
+}
+
+.letter-closing span {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #5c3c92;
+}

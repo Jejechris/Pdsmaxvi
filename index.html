@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estafet Pelayanan - Perpisahan Angkatan 2025</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: #5c3c92;"><h4>PDSMAXVI</h4></a>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="pesan.html">Pesan Kakak</a></li>
+            <li><a href="quiz.html">Kuis</a></li>
+            <li><a href="harapan.html">Dinding Harapan</a></li>
+            <li><a href="surat.html">Surat Masa Depan</a></li>
+        </ul>
+
+        <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+
+    <header id="beranda">
+        <div class="hero-text">
+            <h1>Melangkah dalam Iman: Sebuah Perpisahan & Awal yang Baru</h1>
+            <p>"Aku mengucap syukur kepada Allahku setiap kali aku mengingat kamu." - Filipi 1:3</p>
+            <p class="intro">Untuk adik-adik terkasih, website ini adalah secuil kenangan dan sejuta doa dari kami, Angkatan 2025. Terima kasih telah menjadi bagian dari perjalanan iman kita bersama.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="promo-section">
+            <h2>Pesan dari Hati</h2>
+            <p>Kami telah menuliskan pesan, kesan, dan doa kami untuk kalian semua. Klik tombol di bawah untuk membacanya.</p>
+            <a href="pesan.html" class="btn-utama">Lihat Semua Pesan</a>
+        </section>
+
+        <section id="galeri">
+            <h2>Galeri Kenangan</h2>
+            <div class="gallery-container">
+                <img src="images/retret.jpg" alt="Foto Retret">
+                <img src="images/natal.jpg" alt="Foto Natal">
+                <img src="images/paskah.jpg" alt="Foto Paskah">
+                <img src="images/baksos.jpg" alt="Foto Bakti Sosial">
+                <img src="images/ibadah.jpg" alt="Foto Ibadah Rutin">
+                <img src="images/makan.jpg" alt="Foto Makan Bersama">
+            </div>
+        </section>
+        
+        <section class="promo-section" style="background-color: #fff;">
+            <h2>Mainkan Kuis Seru!</h2>
+            <p>Seberapa baik kamu mengenal kami? Uji ingatanmu dan kenang kembali momen-momen seru kita bersama lewat kuis ini!</p>
+            <a href="quiz.html" class="btn-utama">Mulai Main Kuis</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Dibuat dengan ❤️ oleh Angkatan 2025</p>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            // Animasi Link Navigasi
+            navLinks.classList.toggle('nav-active');
+            
+            // Animasi Ikon Hamburger
+            hamburger.classList.toggle('toggle');
+        });
+    </script>    
+
+</body>
+</html>
