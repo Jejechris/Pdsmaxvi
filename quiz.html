@@ -1,211 +1,249 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuis Perpisahan - PDSMAXVI</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Kuis Perpisahan - PDSMAXVI</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 </head>
 <body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner container">
+      <div class="logo"><a href="index.html" style="text-decoration:none;color:inherit;"><h4>PDSMAXVI</h4></a></div>
 
-    <nav>
-        <div class="logo">
-            <a href="index.html" style="text-decoration: none; color: #5c3c92;"><h4>PDSMAXVI</h4></a>
+      <ul class="nav-links" aria-hidden="true">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="pesan.html">Pesan Kakak</a></li>
+        <li><a href="struktur.html">Pengurus</a></li>
+        <li><a href="quiz.html">Kuis</a></li>
+        <li><a href="harapan.html">Dinding Harapan</a></li>
+        <li><a href="surat.html">Surat Masa Depan</a></li>
+      </ul>
+
+      <div class="hamburger" role="button" aria-label="Menu">
+        <div class="line1"></div><div class="line2"></div><div class="line3"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <section class="container-section">
+      <div class="container">
+        <div class="page-header" data-aos="fade-up">
+          <h2>Games: Tebak Siapakah Kakak Ini?</h2>
+          <p>Jawab pertanyaan, kumpulkan skor, lalu kirim hasil & pesanmu ke Google Form kami.</p>
         </div>
-        
-        <ul class="nav-links">
-            <li><a href="index.html">Beranda</a></li>
-            <li><a href="pesan.html">Pesan Kakak</a></li>
-            <li><a href="quiz.html">Kuis</a></li>
-            <li><a href="harapan.html">Dinding Harapan</a></li>
-            <li><a href="surat.html">Surat Masa Depan</a></li>
-        </ul>
 
-<div class="hamburger">
-    <div class="line1"></div>
-    <div class="line2"></div>
-    <div class="line3"></div>
-</div>
-    </nav>
-    
-    <main>
-        <section id="game-page">
-            <div class="page-header">
-                <h2>Games: Tebak Siapakah Kakak Ini?</h2>
-                <p>Jawab 14 pertanyaan ini, dan di akhir, tuliskan pesan perpisahanmu untuk kami!</p>
+        <div class="quiz-container" data-aos="fade-up">
+          <div id="multiple-choice-quiz">
+            <div id="timer-text" style="font-weight:700; color:var(--purple); margin-bottom:8px;"></div>
+            <div id="question-text" style="font-size:1.15rem; font-weight:700; margin-bottom:1rem;">Pertanyaan akan muncul di sini...</div>
+            <div id="options-container" class="options" style="display:grid; gap:.75rem;"></div>
+            <div style="display:flex; justify-content:center; margin-top:1rem;">
+              <button id="next-btn" class="next-btn" style="display:none;">Lanjut</button>
             </div>
+          </div>
 
-            <div class="quiz-container">
-                <div id="multiple-choice-quiz">
-                    <div id="timer-text"></div> 
-                    <div id="question-text">Pertanyaan akan muncul di sini...</div>
-                    <div id="options-container" class="options"></div>
-                    <button id="next-btn" style="display:none;">Lanjut</button>
-                </div>
-                
-                <div id="final-section" style="display:none;">
-                    <div id="result-text"></div>
-                    <hr style="margin: 2rem 0;">
-                    <h3>Pertanyaan Terakhir Untukmu:</h3>
-                    <p>Tuliskan pesan, kesan, atau doa perpisahanmu untuk kami, kakak-kakak kelas dan PDSMAXVI.</p>
-                    <input type="text" id="user-name" placeholder="Tulis nama lengkapmu di sini..." class="text-input">
-                    <textarea id="user-message" rows="5" placeholder="Tulis pesanmu di sini..." class="text-input"></textarea>
-                    <button id="submit-btn">Kirim Hasil & Pesan</button>
-                    <p id="submission-info" style="font-size: 0.8rem; margin-top: 1rem;">Kamu akan diarahkan ke Google Form untuk konfirmasi.</p>
-                </div>
-            </div>
-        </section>
-    </main>
+          <div id="final-section" style="display:none; margin-top:1rem;">
+            <div id="result-text" style="font-weight:700; margin-bottom:.75rem;"></div>
+            <hr style="margin: 1rem 0;">
+            <h3>Tuliskan nama & pesanmu untuk kakak-kakak:</h3>
+            <input type="text" id="user-name" placeholder="Nama lengkapmu..." class="text-input" style="margin-top:.6rem;">
+            <textarea id="user-message" rows="5" placeholder="Pesan perpisahan / doa..." class="text-input" style="margin-top:.6rem;"></textarea>
+            <button id="submit-btn" class="submit-btn" style="margin-top:.8rem;">Kirim Hasil & Pesan ke Google Form</button>
+            <p class="kv-muted" style="margin-top:.6rem;">Kamu akan diarahkan ke Google Form untuk konfirmasi.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <footer>
-        <p>Dibuat dengan ❤️ oleh Angkatan 2025</p>
-    </footer>
+  <footer><p style="text-align:center; padding:1.6rem 0;">Dibuat dengan ❤️ oleh Angkatan 2025</p></footer>
 
-    <script>
-        const questions = [
-            { question: "Saat acara Retreat 2025, siapakah kakak yang jadi 'Games Master' paling heboh dan kreatif?", options: ["Andre Wijaya", "Kevin Jonathan", "David Hutama", "Michael Tan"], answer: ["Kevin Jonathan", "Andre Wijaya"] },
-            { question: "Kakak yang suaranya paling khas dan sering jadi WL (Worship Leader) utama adalah...", options: ["Maria Grace", "Sari Dewi", "Jessica Lim", "Grace Natalia"], answer: ["Maria Grace"] },
-            { question: "Kalau lagi kumpul dan pesan makanan, kakak ini pasti yang paling semangat dan makannya paling banyak. Siapakah dia?", options: ["David Hutama", "Daniel Suryo", "Samuel P.", "Budi Santoso"], answer: ["David Hutama"] },
-            { question: "Siapakah kakak bendahara angkatan kami yang paling tegas kalau nagih uang kas?", options: ["Cindy Aulia", "Felicia Angel", "Putri Lestari", "Sari Dewi"], answer: ["Cindy Aulia"] },
-            { question: "Waktu perayaan Natal PDSMAXVI, kostum Santa Claus yang dipakai ternyata kekecilan untuk kakak...", options: ["Budi Santoso", "Michael Tan", "Andre Wijaya", "Daniel Suryo"], answer: ["Budi Santoso"] },
-            { question: "Kakak yang paling sering memimpin doa pembuka dengan syahdu dan penuh perenungan adalah...", options: ["Samuel P.", "Jonathan Lee", "Daniel Suryo", "Budi Santoso"], answer: ["Samuel P."] },
-            { question: "Siapakah kakak yang punya motto, 'Pelayanan itu harus seru, jangan dibawa tegang'?", options: ["Kevin Jonathan", "Andre Wijaya", "Michael Tan", "David Hutama"], answer: ["Kevin Jonathan"] },
-            { question: "Insiden paling lucu saat baksos adalah ketika sepatu Kakak ... nyemplung ke lumpur.", options: ["Putri Lestari", "Felicia Angel", "Grace Natalia", "Jessica Lim"], answer: ["Putri Lestari"] },
-            { question: "Lagu pujian 'Sampai Akhir Hidupku' adalah lagu 'kebangsaan' yang paling sering dinyanyikan oleh Kakak...", options: ["Maria Grace", "Grace Natalia", "Sari Dewi", "Cindy Aulia"], answer: ["Grace Natalia"] },
-            { question: "Kakak yang paling jago desain grafis untuk semua poster acara PDSMAXVI adalah...", options: ["Jessica Lim", "Putri Lestari", "Felicia Angel", "Cindy Aulia"], answer: ["Jessica Lim"] },
-            { question: "Siapakah Ketua PDSMAXVI angkatan kami yang sering memberi arahan dengan tegas tapi sabar?", options: ["Jonathan Lee", "Budi Santoso", "Samuel P.", "Michael Tan"], answer: ["Jonathan Lee"] },
-            { question: "Kakak yang paling sering telat datang rapat tapi punya alasan paling kreatif adalah...", options: ["Kevin Jonathan", "David Hutama", "Andre Wijaya", "Daniel Suryo"], answer: ["Andre Wijaya"] },
-            { question: "Di antara kakak-kakak ini, siapakah yang ternyata takut banget sama serangga kecil?", options: ["Michael Tan", "Samuel P.", "Jonathan Lee", "Budi Santoso"], answer: ["Michael Tan"] },
-            { question: "Program kerja PDSMAXVI yang paling berkesan dari angkatan kami adalah...", options: ["Retret Tahunan", "Natal Bersama Panti", "Paskah Sekolah", "Semua Benar"], answer: ["Semua Benar"] },
-        ];
+  <!-- QUIZ LOGIC -->
+  <script>
+    // QUESTIONS - saya gabungkan beberapa dari versi lama + relevan
+    const questions = [
+      { question: "Saat acara Retreat 2025, siapakah kakak yang jadi 'Games Master' paling heboh dan kreatif?", options: ["Andre Wijaya", "Kevin Jonathan", "David Hutama", "Michael Tan"], answer: ["Kevin Jonathan","Andre Wijaya"] },
+      { question: "Kakak yang suaranya paling khas dan sering jadi WL (Worship Leader) utama adalah...", options: ["Maria Grace","Sari Dewi","Jessica Lim","Grace Natalia"], answer: ["Maria Grace"] },
+      { question: "Siapakah Ketua PDSMAXVI angkatan 2025?", options: ["Kezia Amanda P.D.","Jonathan Lee","Samuel P.","Raphael Dimas W."], answer: ["Kezia Amanda P.D."] },
+      { question: "Siapakah yang bertugas sebagai Bendahara angkatan?", options: ["Cindy Aulia","Raphael Dimas W.","Felicia Angel","Putri Lestari"], answer: ["Raphael Dimas W."] },
+      { question: "Kakak yang paling sering memimpin doa pembuka adalah...", options: ["Samuel P.","Jonathan Lee","Daniel Suryo","Budi Santoso"], answer: ["Samuel P."] },
+      { question: "Siapakah koordinator sie musik (anggota penting di tim musik)?", options: ["Gracia Yolanda D.S.","Hayu Kinanthi W.","Elnathan Hamonangan M.","Marco Oktavianus"], answer: ["Gracia Yolanda D.S."] },
+      { question: "Siapakah yang sering bertanggung jawab pada perkap (perlengkapan)?", options: ["Jesen Christofer S.","Rafael Davino H.","Andre Wijaya","David Hutama"], answer: ["Jesen Christofer S."] },
+      { question: "Siapakah yang menjadi Sekretaris angkatan 2025?", options: ["Violetta Theona Putri","Kezia Amanda","Raphael Dimas W.","Putri Lestari"], answer: ["Violetta Theona Putri"] },
+      { question: "Program kerja angkatan kami yang paling berkesan adalah...", options: ["Retret Tahunan","Natal Bersama Panti","Paskah Sekolah","Semua Benar"], answer: ["Semua Benar"] },
+      { question: "Siapakah yang jago desain grafis untuk poster PDSMAXVI?", options: ["Jessica Lim","Putri Lestari","Felicia Angel","Cindy Aulia"], answer: ["Jessica Lim"] },
+      { question: "Siapa yang sering jadi pengurus Sie Doa?", options: ["Marco Oktavianus","Meisy Arbatinsia","Amadea Rosana K.","Baptist Mulya Radja S."], answer: ["Meisy Arbatinsia"] },
+      { question: "Siapakah Ketua Koordinator Sie Acara?", options: ["Amadea Rosana K.","Marco Oktavianus","Gracia Yolanda D.S.","Jesen Christofer S."], answer: ["Amadea Rosana K."] },
+      { question: "Siapa yang biasanya paling semangat waktu pesan makanan?", options: ["David Hutama","Daniel Suryo","Samuel P.","Budi Santoso"], answer: ["David Hutama"] },
+      { question: "Kakak yang sering telat tapi punya alasan kreatif adalah...", options: ["Kevin Jonathan","Andre Wijaya","Michael Tan","Raphael Dimas W."], answer: ["Andre Wijaya"] }
+    ];
 
-        // Referensi elemen HTML
-        const multipleChoiceQuiz = document.getElementById('multiple-choice-quiz');
-        const finalSection = document.getElementById('final-section');
-        const questionText = document.getElementById('question-text');
-        const optionsContainer = document.getElementById('options-container');
-        const nextBtn = document.getElementById('next-btn');
-        const resultText = document.getElementById('result-text');
-        const submitBtn = document.getElementById('submit-btn');
-        const timerText = document.getElementById('timer-text');
-        const TIME_LIMIT = 20;
-        let timeLeft = TIME_LIMIT;
-        let timer;
-        let currentQuestionIndex = 0;
-        let score = 0;
+    // HTML refs
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const nextBtn = document.getElementById('next-btn');
+    const timerText = document.getElementById('timer-text');
+    const multipleChoiceQuiz = document.getElementById('multiple-choice-quiz');
+    const finalSection = document.getElementById('final-section');
+    const resultText = document.getElementById('result-text');
+    const submitBtn = document.getElementById('submit-btn');
 
-        function startQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            multipleChoiceQuiz.style.display = 'block';
-            finalSection.style.display = 'none';
-            showQuestion();
+    let currentQuestionIndex = 0;
+    let score = 0;
+    const TIME_LIMIT = 20; // detik per soal
+    let timeLeft = TIME_LIMIT;
+    let timer;
+
+    function startQuiz() {
+      currentQuestionIndex = 0; score = 0;
+      multipleChoiceQuiz.style.display = 'block';
+      finalSection.style.display = 'none';
+      showQuestion();
+    }
+
+    function showQuestion(){
+      resetState();
+      const q = questions[currentQuestionIndex];
+      questionText.textContent = `(${currentQuestionIndex+1}/${questions.length}) ${q.question}`;
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+        btn.addEventListener('click', ()=> selectAnswer(btn));
+        optionsContainer.appendChild(btn);
+      });
+      timeLeft = TIME_LIMIT;
+      timerText.textContent = `Waktu: ${timeLeft} detik`;
+      clearInterval(timer); startTimer();
+    }
+
+    function startTimer(){
+      timer = setInterval(()=>{
+        timeLeft--; timerText.textContent = `Waktu: ${timeLeft} detik`;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          timerText.textContent = 'Waktu Habis!';
+          // highlight correct answers
+          const correct = questions[currentQuestionIndex].answer;
+          Array.from(optionsContainer.children).forEach(b=>{
+            b.disabled = true;
+            if (correct.includes(b.textContent)) b.classList.add('correct');
+          });
+          nextBtn.style.display = 'inline-block';
         }
+      }, 1000);
+    }
 
-        function showQuestion() {
-            resetState();
-            let currentQuestion = questions[currentQuestionIndex];
-            questionText.textContent = `(${currentQuestionIndex + 1}/${questions.length}) ${currentQuestion.question}`;
-            currentQuestion.options.forEach(option => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-btn');
-                button.addEventListener('click', () => selectAnswer(button));
-                optionsContainer.appendChild(button);
-            });
-            timeLeft = TIME_LIMIT;
-            timerText.textContent = `Waktu: ${timeLeft} detik`;
-            clearInterval(timer);
-            startTimer();
-        }
-        
-        function startTimer() {
-            timer = setInterval(() => {
-                timeLeft--;
-                timerText.textContent = `Waktu: ${timeLeft} detik`;
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    timerText.textContent = "Waktu Habis!";
-                    const correctAnswers = questions[currentQuestionIndex].answer;
-                    Array.from(optionsContainer.children).forEach(btn => {
-                        btn.disabled = true;
-                        if (correctAnswers.includes(btn.textContent)) {
-                            btn.classList.add('correct');
-                        }
-                    });
-                    nextBtn.style.display = 'block';
-                }
-            }, 1000);
-        }
+    function resetState(){
+      while (optionsContainer.firstChild) optionsContainer.removeChild(optionsContainer.firstChild);
+      nextBtn.style.display = 'none';
+    }
 
-        function resetState() {
-            while (optionsContainer.firstChild) {
-                optionsContainer.removeChild(optionsContainer.firstChild);
-            }
-            nextBtn.style.display = 'none';
-        }
+    function selectAnswer(button){
+      clearInterval(timer);
+      const selected = button.textContent;
+      const correct = questions[currentQuestionIndex].answer;
+      if (correct.includes(selected)) score++;
+      Array.from(optionsContainer.children).forEach(b=>{
+        b.disabled = true;
+        if (correct.includes(b.textContent)) b.classList.add('correct'); else b.classList.add('incorrect');
+      });
+      nextBtn.style.display = 'inline-block';
+    }
 
-        function selectAnswer(button) {
-            clearInterval(timer);
-            const selectedOption = button.textContent;
-            const correctAnswers = questions[currentQuestionIndex].answer;
-            if (correctAnswers.includes(selectedOption)) {
-                score++;
-            }
-            Array.from(optionsContainer.children).forEach(btn => {
-                btn.disabled = true;
-                if (correctAnswers.includes(btn.textContent)) {
-                    btn.classList.add('correct');
-                } else {
-                    btn.classList.add('incorrect');
-                }
-            });
-            nextBtn.style.display = 'block';
-        }
+    nextBtn.addEventListener('click', ()=>{
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) showQuestion();
+      else showFinalSection();
+    });
 
-        nextBtn.addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                showFinalSection();
-            }
-        });
+    function showFinalSection(){
+      multipleChoiceQuiz.style.display = 'none';
+      finalSection.style.display = 'block';
+      resultText.innerHTML = `Kuis selesai! Skormu: <strong>${score}</strong> dari ${questions.length}.`;
+    }
 
-        function showFinalSection() {
-            multipleChoiceQuiz.style.display = 'none';
-            finalSection.style.display = 'block';
-            resultText.innerHTML = `Kuis Selesai! Skor Pilihan Gandamu: <strong>${score}</strong> dari ${questions.length} benar.`;
-        }
-        
-        submitBtn.addEventListener('click', () => {
-            const userName = document.getElementById('user-name').value;
-            const userMessage = document.getElementById('user-message').value;
-            if (userName.trim() === '' || userMessage.trim() === '') {
-                alert('Harap isi nama lengkap dan pesanmu!');
-                return;
-            }
-            const baseURL = "PASTIKAN INI SUDAH DIGANTI";
-            const nameEntry = "entry.xxxx=" + encodeURIComponent(userName);
-            const scoreEntry = "entry.xxxx=" + encodeURIComponent(score);
-            const messageEntry = "entry.xxxx=" + encodeURIComponent(userMessage);
-            const finalURL = `${baseURL}&${nameEntry}&${scoreEntry}&${messageEntry}`;
-            window.location.href = finalURL;
-        });
+    // SUBMIT → arahkan ke Google Form (pakai entry keys dari link yang kamu berikan)
+    submitBtn.addEventListener('click', ()=>{
+      const userName = document.getElementById('user-name').value.trim();
+      const userMessage = document.getElementById('user-message').value.trim();
+      if (!userName || !userMessage) { alert('Harap isi nama dan pesanmu.'); return; }
 
-        startQuiz();
-    </script>
-    
-    <script>
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('nav-active');
-            hamburger.classList.toggle('toggle');
-        });
-    </script>
+      // base Google Form URL (dari yang kamu kirim)
+      const baseURL = 'https://docs.google.com/forms/d/e/1FAIpQLSeupcfxdmH_X13aq0iK1dZTs1S4QdHhJTLiamvoK2Kwbg1YCA/viewform?usp=pp_url';
+      const nameEntryKey = 'entry.1165084266';
+      const scoreEntryKey = 'entry.1723369878';
+      const messageEntryKey = 'entry.80347007';
+
+      const finalURL = `${baseURL}&${nameEntryKey}=${encodeURIComponent(userName)}&${scoreEntryKey}=${encodeURIComponent(score)}&${messageEntryKey}=${encodeURIComponent(userMessage)}`;
+
+      // redirect (user akan melihat form preview + data terisi)
+      window.location.href = finalURL;
+    });
+
+    // Start
+    startQuiz();
+  </script>
+
+  <!-- UNIFIED JS (hamburger, lightbox, back-to-top, music, AOS init) -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    function openNav(){ navLinks.classList.add('nav-active'); hamburger.classList.add('toggle'); document.documentElement.style.overflow='hidden'; document.body.style.overflow='hidden'; }
+    function closeNav(){ navLinks.classList.remove('nav-active'); hamburger.classList.remove('toggle'); document.documentElement.style.overflow=''; document.body.style.overflow=''; }
+
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', ()=> navLinks.classList.contains('nav-active') ? closeNav() : openNav());
+
+      document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('nav-active')) closeNav();
+      });
+
+      navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=> { if (navLinks.classList.contains('nav-active')) closeNav(); }));
+    }
+
+    // gallery lightbox (if any)
+    const galleryImgs = document.querySelectorAll('.gallery-container img');
+    if (galleryImgs.length) {
+      const lightbox = document.createElement('div'); lightbox.id='simple-lightbox'; lightbox.style.cssText='position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,6,12,0.7);z-index:1600;padding:2rem;';
+      lightbox.innerHTML = '<div style="max-width:1100px;width:100%;"><img style="max-width:100%;max-height:80vh;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,0.5);display:block;margin:0 auto;"><div style="text-align:center;margin-top:.8rem;color:#fff;"><button id="lb-close" style="padding:.45rem .9rem;border-radius:8px;border:none;background:rgba(255,255,255,0.12);color:#fff;cursor:pointer;">Tutup</button></div></div>';
+      document.body.appendChild(lightbox);
+      const lbImg = lightbox.querySelector('img'); const lbClose = lightbox.querySelector('#lb-close');
+      galleryImgs.forEach(img => img.addEventListener('click', ()=> { lbImg.src = img.src; lightbox.style.display='flex'; document.body.style.overflow='hidden'; }));
+      lbClose.addEventListener('click', ()=> { lightbox.style.display='none'; document.body.style.overflow=''; });
+      lightbox.addEventListener('click',(e)=> { if (e.target===lightbox) { lightbox.style.display='none'; document.body.style.overflow=''; }});
+    }
+
+    // back to top
+    let btt = document.getElementById('back-to-top'); if (!btt) { btt = document.createElement('div'); btt.id='back-to-top'; btt.innerHTML='↑'; document.body.appendChild(btt); }
+    window.addEventListener('scroll', ()=> { if (window.scrollY > 450) btt.classList.add('show'); else btt.classList.remove('show'); });
+    btt.addEventListener('click', ()=> window.scrollTo({top:0,behavior:'smooth'}));
+
+    // music control
+    const musicControl = document.getElementById('music-control');
+    const backgroundMusic = document.getElementById('background-music');
+    if (musicControl && backgroundMusic) {
+      musicControl.addEventListener('click', ()=> {
+        if (backgroundMusic.paused) { backgroundMusic.play().catch(()=>{}); musicControl.classList.add('playing'); } else { backgroundMusic.pause(); musicControl.classList.remove('playing'); }
+      });
+      const prefer = localStorage.getItem('pds-music') || 'paused';
+      if (prefer === 'playing') { backgroundMusic.play().then(()=> musicControl.classList.add('playing')).catch(()=>{}); }
+      backgroundMusic.onplay = ()=> localStorage.setItem('pds-music','playing');
+      backgroundMusic.onpause = ()=> localStorage.setItem('pds-music','paused');
+    }
+
+    if (window.AOS) AOS.init({ duration:700, once:true, easing:'ease-in-out' });
+  });
+  </script>
 </body>
 </html>
