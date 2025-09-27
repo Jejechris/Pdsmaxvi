@@ -45,6 +45,12 @@ nav .logo h4 {
     color: #5c3c92;
 }
 
+/* --- HAMBURGER --- */
+/* Default sembunyikan di desktop */
+.hamburger {
+    display: none;
+}
+
 /* --- HEADER / BERANDA --- */
 header {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('pdsmaxvi.jpg');
@@ -272,41 +278,41 @@ footer {
 }
 
 /* --- UNTUK TAMPILAN HP (RESPONSIVE) --- */
-@media (max-width: 768px) {
-    /* Atur agar menu navigasi (ul) tersembunyi di awal */
+@media (max-width: 1024px) {
     .nav-links {
         position: absolute;
         right: 0px;
-        top: 60px; /* Sesuaikan dengan tinggi navbar Anda */
+        top: 60px;
         background-color: #fff;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
-        transform: translateY(-120%); /* Sembunyikan ke atas */
+        transform: translateY(-120%);
         transition: transform 0.5s ease-in-out;
         box-shadow: 0 4px 5px rgba(0,0,0,0.1);
     }
     
-    /* Atur jarak antar link di menu mobile */
     .nav-links li {
         padding: 1.5rem 0;
         width: 100%;
         text-align: center;
     }
 
-    /* Ini adalah class yang akan ditambahkan oleh JavaScript saat hamburger diklik */
     .nav-active {
-        transform: translateY(0%); /* Munculkan menu dari atas */
+        transform: translateY(0%);
     }
 
-    /* Styling untuk ikon hamburger (tiga garis) */
     .hamburger {
-        display: block; /* Munculkan ikon hamburger di mobile */
+        display: block;
         cursor: pointer;
+        z-index: 200;
+        position: relative;
     }
     
-    .hamburger .line {
+    .hamburger .line1,
+    .hamburger .line2,
+    .hamburger .line3 {
         width: 30px;
         height: 3px;
         background-color: #333;
@@ -314,7 +320,6 @@ footer {
         transition: all 0.3s ease;
     }
 
-    /* Animasi hamburger menjadi tanda silang (X) saat menu aktif */
     .toggle .line1 {
         transform: rotate(-45deg) translate(-5px, 6px);
     }
@@ -325,7 +330,6 @@ footer {
         transform: rotate(45deg) translate(-5px, -6px);
     }
     
-    /* Atur ulang ukuran font judul agar tidak terlalu besar di HP */
     .hero-text h1 {
         font-size: 2rem;
     }
@@ -334,40 +338,35 @@ footer {
     }
 }
 
-/* Sembunyikan ikon hamburger di versi desktop */
-.hamburger {
-    display: none;
-}
 /* --- STYLE BARU UNTUK INPUT FORM DI HALAMAN KUIS --- */
-
 .text-input {
-    width: 100%; /* Lebar penuh */
-    padding: 12px 15px; /* Jarak tulisan di dalam box */
-    font-family: 'Poppins', sans-serif; /* Samakan font */
+    width: 100%;
+    padding: 12px 15px;
+    font-family: 'Poppins', sans-serif;
     font-size: 1rem;
-    margin-top: 1rem; /* Jarak antar box */
+    margin-top: 1rem;
     border: 2px solid #ddd;
-    border-radius: 8px; /* Sudut membulat */
-    box-sizing: border-box; /* Penting agar padding tidak merusak layout */
+    border-radius: 8px;
+    box-sizing: border-box;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .text-input:focus {
-    outline: none; /* Hilangkan outline default */
-    border-color: #5c3c92; /* Warna ungu saat diklik */
-    box-shadow: 0 0 5px rgba(92, 60, 146, 0.3); /* Beri sedikit bayangan saat diklik */
+    outline: none;
+    border-color: #5c3c92;
+    box-shadow: 0 0 5px rgba(92, 60, 146, 0.3);
 }
 
-/* Beri jarak tombol submit dari atas */
 #submit-btn {
     width: 100%;
     margin-top: 1.5rem;
-    padding: 1rem; /* Buat tombol lebih besar */
+    padding: 1rem;
     font-size: 1.1rem;
 }
+
 /* --- STYLE HALAMAN SURAT MASA DEPAN --- */
 #future-letter {
-    background-color: #fdfdfa; /* Warna kertas sedikit krem */
+    background-color: #fdfdfa;
 }
 
 .letter-container {
@@ -378,7 +377,7 @@ footer {
     box-shadow: 0 5px 25px rgba(0,0,0,0.08);
     border-top: 5px solid #5c3c92;
     text-align: left;
-    font-family: 'Playfair Display', serif; /* Font elegan untuk surat */
+    font-family: 'Playfair Display', serif;
     line-height: 1.8;
     color: #444;
 }
