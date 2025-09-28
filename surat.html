@@ -42,5 +42,48 @@
   <footer><p>Dibuat dengan ❤️ oleh Angkatan 2025</p></footer>
 
   <!-- unified JS -->
+     <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelector('.nav-links');
+
+      // Reset saat load
+      hamburger.classList.remove('toggle');
+      navLinks.classList.remove('nav-active');
+
+      function openNav() {
+        navLinks.classList.add('nav-active');
+        hamburger.classList.add('toggle');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+      }
+      function closeNav() {
+        navLinks.classList.remove('nav-active');
+        hamburger.classList.remove('toggle');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+      }
+
+      if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+          navLinks.classList.contains('nav-active') ? closeNav() : openNav();
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('nav-active')) {
+            closeNav();
+          }
+        });
+
+        navLinks.querySelectorAll('a').forEach(a => {
+          a.addEventListener('click', () => {
+            if (navLinks.classList.contains('nav-active')) closeNav();
+          });
+        });
+      }
+
+      if (window.AOS) AOS.init({ duration:700, once:true, easing:'ease-in-out' });
+    });
+  </script>
 </body>
 </html>
