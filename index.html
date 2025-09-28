@@ -9,8 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 <body>
+  <!-- Hero Section -->
+
   <!-- Kontrol Musik -->
   <div id="music-control" title="Play / Pause">🎵</div>
   <audio id="background-music" src="03.mp3" loop></audio>
@@ -28,7 +33,9 @@
         <li><a href="struktur.html">Pengurus</a></li>
         <li><a href="quiz.html">Kuis</a></li>
         <li><a href="harapan.html">Dinding Harapan</a></li>
-        <li><a href="surat.html">Surat Masa Depan</a></li>
+        <li><a href="surat.html">Surat Masa Depan</a></li> 
+        <li><a href="galeri.html">Galeri</a></li>
+        <li><a href="proker.html" class="active">Proker</a></li>
       </ul>
 
       <!-- HAMBURGER (3 garis) -->
@@ -40,7 +47,8 @@
     </div>
   </nav>
 
-  <!-- HERO -->
+
+
   <header id="beranda">
     <div class="hero-text" data-aos="fade-up">
       <h1>Melangkah dalam Iman: Sebuah Perpisahan & Awal yang Baru</h1>
@@ -55,44 +63,36 @@
       </div>
     </div>
   </header>
-
-  <!-- MAIN -->
-  <main>
-    <section class="promo-section container-section">
-      <div class="container">
-        <h2>Pesan dari Hati</h2>
-        <p>Kami telah menuliskan pesan, kesan, dan doa kami untuk kalian semua. Klik tombol di bawah untuk membacanya.</p>
-        <a href="pesan.html" class="btn-utama">Lihat Semua Pesan</a>
-      </div>
-    </section>
-
-    <section id="galeri" class="container-section">
-      <div class="container">
-        <h2>Galeri Kenangan</h2>
-        <div class="gallery-container">
-          <img src="images/retret.jpg" alt="Foto Retret">
-          <img src="images/natal.jpg" alt="Foto Natal">
-          <img src="images/paskah.jpg" alt="Foto Paskah">
-          <img src="images/baksos.jpg" alt="Foto Bakti Sosial">
-          <img src="images/ibadah.jpg" alt="Foto Ibadah">
-          <img src="images/makan.jpg" alt="Foto Makan Bersama">
-        </div>
-      </div>
-    </section>
-
-    <section class="promo-section container-section">
-      <div class="container">
-        <h2>Mainkan Kuis Seru!</h2>
-        <p>Seberapa baik kamu mengenal kami? Uji ingatanmu dan kenang kembali momen-momen seru kita bersama lewat kuis ini!</p>
-        <a href="quiz.html" class="btn-utama">Mulai Kuis</a>
-      </div>
-    </section>
-  </main>
+  
+  <!-- HERO -->
+   <section class="hero">
+  <div class="hero-content" data-aos="fade-up">
+    <h1>Perpisahan Angkatan XII</h1>
+    <p>"Selamat Jalan Kakak Kelas, Jejakmu Akan Selalu Kami Kenang"</p>
+    <div class="hero-buttons">
+      <a href="pesan.html" class="btn-utama">📜 Lihat Semua Pesan</a>
+      <a href="quiz.html" class="btn-utama">🎯 Mulai Kuis</a>
+    </div>
+  </div>
+</section>
 
   <!-- FOOTER -->
-  <footer>
-    <p>Dibuat dengan ❤️ oleh Angkatan 2025</p>
-  </footer>
+<footer>
+  <p>&copy; 2025 Perpisahan Angkatan XII - Semua Hak Cipta Dilindungi</p>
+  
+  <div class="footer-links">
+    <a href="index.html">Beranda</a> |
+    <a href="pesan.html">Pesan</a> |
+    <a href="quiz.html">Kuis</a>
+  </div>
+
+  <div class="social-icons">
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-youtube"></i></a>
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+  </div>
+</footer>
+
 
   <!-- SCRIPT COUNTDOWN -->
   <script>
@@ -119,48 +119,50 @@
   </script>
 
   <!-- SCRIPT NAVBAR + FEATURES -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const hamburger = document.querySelector('.hamburger');
-      const navLinks = document.querySelector('.nav-links');
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('nav');
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
 
-      // Reset saat load
-      hamburger.classList.remove('toggle');
-      navLinks.classList.remove('nav-active');
-
-      function openNav() {
-        navLinks.classList.add('nav-active');
-        hamburger.classList.add('toggle');
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.overflow = 'hidden';
+    // efek sticky + shadow saat scroll
+    const onScroll = () => {
+      if (window.scrollY > 20) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
       }
-      function closeNav() {
-        navLinks.classList.remove('nav-active');
-        hamburger.classList.remove('toggle');
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-      }
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
 
-      if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
-          navLinks.classList.contains('nav-active') ? closeNav() : openNav();
+    // toggle hamburger + menu
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('show');
+      });
+
+      // klik luar area nav untuk tutup
+      document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('show');
+        }
+      });
+
+      // klik link → close menu (mobile)
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('show');
         });
+      });
+    }
 
-        document.addEventListener('click', (e) => {
-          if (!navLinks.contains(e.target) && !hamburger.contains(e.target) && navLinks.classList.contains('nav-active')) {
-            closeNav();
-          }
-        });
-
-        navLinks.querySelectorAll('a').forEach(a => {
-          a.addEventListener('click', () => {
-            if (navLinks.classList.contains('nav-active')) closeNav();
-          });
-        });
-      }
-
-      if (window.AOS) AOS.init({ duration:700, once:true, easing:'ease-in-out' });
-    });
-  </script>
+    // AOS animation
+    if (window.AOS) AOS.init({ duration:700, once:true, easing:'ease-in-out' });
+  });
+</script>
 </body>
 </html>
