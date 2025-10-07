@@ -4,23 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Struktur Pengurus</title>
+  <meta name="description" content="Struktur pengurus PDSMAXVI Angkatan 2025.">
+  <link rel="canonical" href="struktur.html">
+  <meta property="og:title" content="Struktur Pengurus - PDSMAXVI">
+  <meta property="og:description" content="Struktur pengurus PDSMAXVI Angkatan 2025.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="pdsmaxvi.jpg">
+  <meta property="og:url" content="struktur.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Struktur Pengurus - PDSMAXVI">
+  <meta name="twitter:description" content="Struktur pengurus PDSMAXVI Angkatan 2025.">
+  <meta name="twitter:image" content="pdsmaxvi.jpg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#5c3c92">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+  <button id="music-control" aria-label="Putar musik latar" title="Play / Pause">🎵</button>
+  <audio id="background-music" src="03.mp3" loop></audio>
+  <button id="back-to-top" aria-label="Kembali ke atas" title="Back to top">↑</button>
   <!-- NAVBAR -->
   <nav>
     <div class="nav-inner container">
       <div class="logo"><a href="index.html" style="text-decoration:none;color:inherit;"><h4>PDSMAXVI</h4></a></div>
       <ul class="nav-links">
         <li><a href="index.html">Beranda</a></li>
-        <li><a href="pesan.html">Pesan Kakak</a></li>
+        <li><a href="pesan.html">Pesan</a></li>
         <li><a href="struktur.html">Pengurus</a></li>
         <li><a href="quiz.html">Kuis</a></li>
-        <li><a href="harapan.html">Dinding Harapan</a></li>
-        <li><a href="surat.html">Surat Masa Depan</a></li>        
-        <li><a href="galeri.html" class="active">Galeri</a></li>
-                <li><a href="proker.html" class="active">Proker</a></li>
+        <li><a href="galeri.html">Timeline</a></li>
+        <li><a href="awards.html">Awards</a></li>
+        <li><a href="estafet.html">Estafet</a></li>
+        <li><a href="surat-unik.html">Surat Unik</a></li>
       </ul>
       <div class="hamburger">
         <div class="line1"></div>
@@ -181,51 +199,7 @@
     <a href="#"><i class="fab fa-whatsapp"></i></a>
   </div>
 </footer>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const nav = document.querySelector('nav');
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-
-    // efek sticky + shadow saat scroll
-    const onScroll = () => {
-      if (window.scrollY > 20) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    };
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-
-    // toggle hamburger + menu
-    if (hamburger && navLinks) {
-      hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('show');
-      });
-
-      // klik luar area nav untuk tutup
-      document.addEventListener('click', (e) => {
-        if (!nav.contains(e.target)) {
-          hamburger.classList.remove('active');
-          navLinks.classList.remove('show');
-        }
-      });
-
-      // klik link → close menu (mobile)
-      navLinks.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          hamburger.classList.remove('active');
-          navLinks.classList.remove('show');
-        });
-      });
-    }
-
-    // AOS animation
-    if (window.AOS) AOS.init({ duration:700, once:true, easing:'ease-in-out' });
-  });
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>

@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Surat Masa Depan - Angkatan XII</title>
-  <meta name="description" content="Surat masa depan dari pembimbing dan pengurus untuk Angkatan XII.">
-  <link rel="canonical" href="surat.html">
-  <meta property="og:title" content="Surat Masa Depan - Angkatan XII">
-  <meta property="og:description" content="Pesan hangat dari pembimbing dan pengurus.">
+  <title>Awards Seru - PDSMAXVI</title>
+  <meta name="description" content="Fun badges untuk merayakan kontribusi dan kebersamaan.">
+  <link rel="canonical" href="awards.html">
+  <meta property="og:title" content="Awards Seru - PDSMAXVI">
+  <meta property="og:description" content="Fun badges untuk merayakan kontribusi.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="pdsmaxvi.jpg">
-  <meta property="og:url" content="surat.html">
+  <meta property="og:url" content="awards.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Surat Masa Depan - Angkatan XII">
-  <meta name="twitter:description" content="Pesan hangat dari pembimbing dan pengurus.">
+  <meta name="twitter:title" content="Awards Seru - PDSMAXVI">
+  <meta name="twitter:description" content="Fun badges untuk merayakan kontribusi.">
   <meta name="twitter:image" content="pdsmaxvi.jpg">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5c3c92">
@@ -24,74 +24,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
   <button id="music-control" aria-label="Putar musik latar" title="Play / Pause">🎵</button>
   <audio id="background-music" src="03.mp3" loop></audio>
   <button id="back-to-top" aria-label="Kembali ke atas" title="Back to top">↑</button>
-
-  <!-- NAVBAR -->
   <nav>
     <div class="nav-inner container">
       <div class="logo"><a href="index.html" style="text-decoration:none;color:inherit;"><h4>PDSMAXVI</h4></a></div>
-      <ul class="nav-links">
+      <ul class="nav-links" aria-hidden="true">
         <li><a href="index.html">Beranda</a></li>
         <li><a href="pesan.html">Pesan</a></li>
         <li><a href="struktur.html">Pengurus</a></li>
         <li><a href="quiz.html">Kuis</a></li>
         <li><a href="galeri.html">Timeline</a></li>
-        <li><a href="awards.html">Awards</a></li>
+        <li><a href="awards.html" class="active">Awards</a></li>
         <li><a href="estafet.html">Estafet</a></li>
         <li><a href="surat-unik.html">Surat Unik</a></li>
       </ul>
-      <div class="hamburger"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div>
+      <div class="hamburger" role="button" aria-label="Menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <header class="hero hero-surat">
+  <header class="hero hero-galeri">
     <div class="hero-content" data-aos="fade-up">
-      <h1>Surat Masa Depan</h1>
-      <p>"Pesan hangat dari para pembimbing dan pemimpin"</p>
+      <h1>Awards Seru</h1>
+      <p>Penghargaan ringan untuk merayakan kebersamaan</p>
     </div>
   </header>
 
-  <!-- SURAT SECTION -->
-  <section class="surat container-section">
-    <div class="surat-grid">
-      <!-- Pembimbing -->
-      <div class="surat-card" data-aos="fade-up">
-        <h3>Pembimbing</h3>
-        <p class="surat-isi">“Teruslah melangkah dengan rendah hati. Jangan lupa bahwa pelayanan adalah tentang kasih, bukan sekedar tugas. Kami bangga pada perjalanan kalian.”</p>
-        <span class="surat-nama">- Ibu Pembimbing</span>
-      </div>
-
-      <!-- Ketua PD -->
-      <div class="surat-card" data-aos="fade-up" data-aos-delay="150">
-        <h3>Ketua PD & Ketua Proker</h3>
-        <p class="surat-isi">“Kalian adalah angkatan yang penuh semangat. Estafet ini bukan berakhir, melainkan diteruskan. Mari tetap bersatu meski langkah kita berbeda arah.”</p>
-        <span class="surat-nama">- Kezia Amanda XII-11</span>
-      </div>
-
-      <!-- Ketua Proker -->
-      <div class="surat-card" data-aos="fade-up" data-aos-delay="300">
-        <h3>Ketua Proker</h3>
-        <p class="surat-isi">“Setiap kegiatan yang kita jalani meninggalkan cerita. Semoga pengalaman ini menguatkan kalian untuk menghadapi dunia dengan berani.”</p>
-        <span class="surat-nama">- Jesen Christofer S XII-6</span>
-      </div>
+  <section class="container-section">
+    <h2 class="section-title" data-aos="fade-up">Fun Badges</h2>
+    <div class="badges">
+      <div class="badge" data-aos="zoom-in"><div class="icon">🏅</div><h3>Paling Rajin Ibadah</h3><p>Hadir dan setia menguatkan tim.</p></div>
+      <div class="badge" data-aos="zoom-in" data-aos-delay="50"><div class="icon">🎤</div><h3>MC Andalan</h3><p>Suaranya bikin suasana hidup.</p></div>
+      <div class="badge" data-aos="zoom-in" data-aos-delay="100"><div class="icon">🎸</div><h3>Pemusik Inspiratif</h3><p>Harmoni yang menyentuh hati.</p></div>
+      <div class="badge" data-aos="zoom-in" data-aos-delay="150"><div class="icon">🎯</div><h3>Penggerak Acara</h3><p>Selalu sigap dan tepat waktu.</p></div>
+      <div class="badge" data-aos="zoom-in" data-aos-delay="200"><div class="icon">🤝</div><h3>Sahabat Semua</h3><p>Ramah dan merangkul semua.</p></div>
+      <div class="badge" data-aos="zoom-in" data-aos-delay="250"><div class="icon">😂</div><h3>Humoris</h3><p>Pencair suasana nomor satu.</p></div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <p>&copy; 2025 Perpisahan Angkatan XII - Semua Hak Cipta Dilindungi</p>
     <div class="footer-links">
       <a href="index.html">Beranda</a> |
       <a href="pesan.html">Pesan</a> |
       <a href="quiz.html">Kuis</a> |
-      <a href="galeri.html">Galeri</a>
+      <a href="awards.html" class="active">Awards</a>
     </div>
     <div class="social-icons">
       <a href="#"><i class="fab fa-instagram"></i></a>
@@ -103,3 +84,5 @@
   <script src="app.js"></script>
 </body>
 </html>
+
+

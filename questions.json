@@ -1,0 +1,19 @@
+{
+  "questions": [
+    { "type": "multi", "category": "acara", "question": "Saat acara Retreat 2025, siapakah kakak yang jadi 'Games Master' paling heboh dan kreatif? (Pilih 2)", "options": ["Andre Wijaya","Kevin Jonathan","David Hutama","Michael Tan"], "answer": ["Kevin Jonathan","Andre Wijaya"] },
+    { "type": "mcq", "category": "musik", "question": "Kakak yang suaranya paling khas dan sering jadi WL utama adalah...", "options": ["Maria Grace","Sari Dewi","Jessica Lim","Grace Natalia"], "answer": ["Maria Grace"] },
+    { "type": "mcq", "category": "pengurus", "question": "Siapakah Ketua PDSMAXVI angkatan 2025?", "options": ["Kezia Amanda P.D.","Jonathan Lee","Samuel P.","Raphael Dimas W."], "answer": ["Kezia Amanda P.D."] },
+    { "type": "mcq", "category": "pengurus", "question": "Siapakah yang bertugas sebagai Bendahara angkatan?", "options": ["Cindy Aulia","Raphael Dimas W.","Felicia Angel","Putri Lestari"], "answer": ["Raphael Dimas W."] },
+    { "type": "bool", "category": "doa", "question": "Samuel P. paling sering memimpin doa pembuka.", "options": ["Benar","Salah"], "answer": ["Benar"] },
+    { "type": "mcq", "category": "musik", "question": "Siapakah koordinator sie musik?", "options": ["Gracia Yolanda D.S.","Hayu Kinanthi W.","Elnathan Hamonangan M.","Marco Oktavianus"], "answer": ["Gracia Yolanda D.S."] },
+    { "type": "mcq", "category": "perkap", "question": "Siapakah yang sering bertanggung jawab pada perkap?", "options": ["Jesen Christofer S.","Rafael Davino H.","Andre Wijaya","David Hutama"], "answer": ["Jesen Christofer S."] },
+    { "type": "mcq", "category": "pengurus", "question": "Siapakah yang menjadi Sekretaris angkatan 2025?", "options": ["Violetta Theona Putri","Kezia Amanda","Raphael Dimas W.","Putri Lestari"], "answer": ["Violetta Theona Putri"] },
+    { "type": "mcq", "category": "proker", "question": "Program kerja angkatan kami yang paling berkesan adalah...", "options": ["Retret Tahunan","Natal Bersama Panti","Paskah Sekolah","Semua Benar"], "answer": ["Semua Benar"] },
+    { "type": "mcq", "category": "desain", "question": "Siapakah yang jago desain grafis untuk poster PDSMAXVI?", "options": ["Jessica Lim","Putri Lestari","Felicia Angel","Cindy Aulia"], "answer": ["Jessica Lim"] },
+    { "type": "mcq", "category": "doa", "question": "Siapa yang sering jadi pengurus Sie Doa?", "options": ["Marco Oktavianus","Meisy Arbatinsia","Amadea Rosana K.","Baptist Mulya Radja S."], "answer": ["Meisy Arbatinsia"] },
+    { "type": "mcq", "category": "acara", "question": "Siapakah Ketua Koordinator Sie Acara?", "options": ["Amadea Rosana K.","Marco Oktavianus","Gracia Yolanda D.S.","Jesen Christofer S."], "answer": ["Amadea Rosana K."] },
+    { "type": "mcq", "category": "fun", "question": "Siapa yang biasanya paling semangat waktu pesan makanan?", "options": ["David Hutama","Daniel Suryo","Samuel P.","Budi Santoso"], "answer": ["David Hutama"] },
+    { "type": "mcq", "category": "fun", "question": "Kakak yang sering telat tapi punya alasan kreatif adalah...", "options": ["Kevin Jonathan","Andre Wijaya","Michael Tan","Raphael Dimas W."], "answer": ["Andre Wijaya"] }
+  ]
+}
+
