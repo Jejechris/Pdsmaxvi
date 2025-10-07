@@ -110,11 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.addEventListener('click', () => overlay.classList.remove('show'));
 });
 
-// Register service worker
+// Register service worker - DISABLED for development
+// Uncomment for production deployment
+/*
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(()=>{});
   });
 }
+*/
 
 
