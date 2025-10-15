@@ -1074,6 +1074,29 @@
       .disclaimer-icon {
         font-size: 2.5rem;
       }
+
+      /* Music Control Mobile Fix */
+      .audio-player {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+      }
+
+      .audio-player.visible {
+        transform: translateY(0);
+      }
+
+      .welcome-overlay {
+        z-index: 1000;
+      }
+
+      .welcome-overlay.active {
+        z-index: 1000;
+      }
     }
   </style>
 </head>
@@ -1579,6 +1602,33 @@
       
       // Add fade in animation
       document.getElementById('instagramContainer').style.animation = 'fadeInUp 1s ease-out';
+      
+      // Show music control after welcome screens
+      showMusicControl();
+    }
+
+    // Mobile Music Control Visibility
+    function toggleMusicControl() {
+      const audioPlayer = document.getElementById('audioPlayer');
+      if (audioPlayer) {
+        audioPlayer.classList.toggle('visible');
+      }
+    }
+
+    // Hide music control during welcome screens
+    function hideMusicControl() {
+      const audioPlayer = document.getElementById('audioPlayer');
+      if (audioPlayer) {
+        audioPlayer.classList.remove('visible');
+      }
+    }
+
+    // Show music control after welcome screens
+    function showMusicControl() {
+      const audioPlayer = document.getElementById('audioPlayer');
+      if (audioPlayer) {
+        audioPlayer.classList.add('visible');
+      }
     }
 
     // Music Functions
@@ -1808,6 +1858,9 @@
           }
         });
       });
+
+      // Hide music control on mobile during welcome screens
+      hideMusicControl();
     });
 
     // Keyboard Navigation
