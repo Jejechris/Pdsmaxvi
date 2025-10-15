@@ -1,0 +1,19 @@
+📸 INSTRUKSI UNTUK FOTO BACKGROUND:
+
+1. Ganti nama file ini menjadi: untukmu-bg.jpg
+2. Masukkan foto romantis yang ingin Anda gunakan sebagai background
+3. Ukuran yang disarankan: 1920x1080 px atau lebih besar
+4. Format: JPG, PNG, atau WebP
+5. Lokasi file: pages/images/untukmu-bg.jpg
+
+💡 Saran foto:
+- Foto sunset/sunrise romantis
+- Foto bunga atau alam yang indah
+- Foto dengan nuansa pink/purple/soft
+- Foto pasangan yang romantis
+- Atau foto apapun yang bermakna untuk Anda
+
+🎨 Foto akan otomatis menjadi background dengan efek blur dan overlay yang cantik!
+
+
+

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development Tools - PDSMAXVI</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+    .btn-danger {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+    }
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
+    }
+    .btn-success {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+    }
+    .status {
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px 0;
+      font-weight: 600;
+    }
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .status.info {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+    ul {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin: 10px 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛠️ Development Tools</h1>
+    <p>Tools untuk mengatasi masalah caching saat development</p>
+
+    <div id="status"></div>
+
+    <h3 style="margin: 20px 0 10px; color: #333;">Quick Actions:</h3>
+    
+    <button class="btn btn-danger" onclick="clearAllCache()">
+      🗑️ Clear All Caches
+    </button>
+
+    <button class="btn btn-danger" onclick="unregisterServiceWorkers()">
+      ❌ Unregister Service Workers
+    </button>
+
+    <button class="btn btn-success" onclick="clearLocalStorage()">
+      📦 Clear LocalStorage
+    </button>
+
+    <button class="btn btn-primary" onclick="hardReload()">
+      🔄 Hard Reload Page
+    </button>
+
+    <button class="btn btn-primary" onclick="doAll()">
+      ⚡ DO ALL (Recommended)
+    </button>
+
+    <hr style="margin: 30px 0; border: none; border-top: 2px solid #eee;">
+
+    <h3 style="margin: 20px 0 10px; color: #333;">Manual Steps:</h3>
+    <ul>
+      <li>Press <code>Ctrl + Shift + Delete</code> to open Clear Data</li>
+      <li>Press <code>Ctrl + Shift + R</code> for hard refresh</li>
+      <li>Use Incognito: <code>Ctrl + Shift + N</code></li>
+      <li>DevTools → Application → Clear storage</li>
+    </ul>
+
+    <div class="status info" style="margin-top: 20px;">
+      💡 <strong>Tip:</strong> Service Worker sudah di-disable di <code>app.js</code> untuk development!
+    </div>
+  </div>
+
+  <script>
+    function showStatus(message, isSuccess = true) {
+      const status = document.getElementById('status');
+      status.className = 'status ' + (isSuccess ? 'success' : 'info');
+      status.textContent = message;
+      setTimeout(() => status.textContent = '', 3000);
+    }
+
+    async function clearAllCache() {
+      try {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(key => caches.delete(key)));
+        showStatus('✅ All caches cleared! (' + keys.length + ' caches deleted)');
+        console.log('Cleared caches:', keys);
+      } catch (error) {
+        showStatus('❌ Error clearing cache: ' + error.message, false);
+      }
+    }
+
+    async function unregisterServiceWorkers() {
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(registrations.map(reg => reg.unregister()));
+        showStatus('✅ All service workers unregistered! (' + registrations.length + ')');
+        console.log('Unregistered:', registrations);
+      } catch (error) {
+        showStatus('❌ Error: ' + error.message, false);
+      }
+    }
+
+    function clearLocalStorage() {
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+        showStatus('✅ LocalStorage & SessionStorage cleared!');
+      } catch (error) {
+        showStatus('❌ Error: ' + error.message, false);
+      }
+    }
+
+    function hardReload() {
+      location.reload(true);
+    }
+
+    async function doAll() {
+      showStatus('⏳ Clearing everything...', false);
+      await clearAllCache();
+      await unregisterServiceWorkers();
+      clearLocalStorage();
+      setTimeout(() => {
+        showStatus('✅ Done! Reloading page in 2 seconds...', true);
+        setTimeout(() => location.reload(true), 2000);
+      }, 1000);
+    }
+
+    // Auto-check on load
+    window.addEventListener('load', async () => {
+      const cacheCount = (await caches.keys()).length;
+      const swCount = (await navigator.serviceWorker.getRegistrations()).length;
+      console.log('Caches:', cacheCount, 'Service Workers:', swCount);
+    });
+  </script>
+</body>
+</html>
+
+
+
+

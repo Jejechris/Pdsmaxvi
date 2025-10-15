@@ -1,0 +1,110 @@
+════════════════════════════════════════════════════════════════
+🔥 FIREBASE SETUP - QUICK START (5 MENIT)
+════════════════════════════════════════════════════════════════
+
+LANGKAH 1: Buat Project Firebase
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Buka: https://console.firebase.google.com/
+2. Login dengan Google Account
+3. Klik "Add project" / "Tambah project"
+4. Nama project: pdsmaxvi-quiz (atau terserah)
+5. Disable Google Analytics (tidak perlu)
+6. Klik "Create project"
+
+LANGKAH 2: Setup Realtime Database
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Di sidebar kiri → "Realtime Database"
+2. Klik "Create Database"
+3. Pilih lokasi: Asia Southeast (Singapore)
+4. Security rules: Pilih "Start in TEST MODE"
+5. Klik "Enable"
+
+LANGKAH 3: Dapatkan Config & Update File
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Klik icon ⚙️ (Settings) → "Project settings"
+2. Scroll ke "Your apps" → Klik icon </> (Web)
+3. App nickname: PDSMAXVI Quiz Web
+4. Jangan centang Firebase Hosting
+5. Klik "Register app"
+6. COPY semua config yang muncul
+7. PASTE ke file: firebase-config.js
+   (Ganti dari baris 5-12)
+
+CONTOH CONFIG YANG AKAN KAMU COPY:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const firebaseConfig = {
+  apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  authDomain: "pdsmaxvi-quiz.firebaseapp.com",
+  databaseURL: "https://pdsmaxvi-quiz-default-rtdb.firebaseio.com",
+  projectId: "pdsmaxvi-quiz",
+  storageBucket: "pdsmaxvi-quiz.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:xxxxxxxxxxxxx"
+};
+
+LANGKAH 4: Test!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Buka quiz.html di browser
+2. Tekan F12 untuk buka Console
+3. Cari pesan: "✅ Firebase initialized successfully!"
+4. Main quiz sampai selesai
+5. Submit nama + pesan
+6. Cek di Firebase Console → Realtime Database
+   Harusnya muncul data di /leaderboard
+
+VERIFIKASI BERHASIL:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ Console log: "Firebase initialized successfully"
+✅ Console log: "Listening to Firebase leaderboard updates"
+✅ Console log: "Score saved to Firebase!"
+✅ Status di quiz: "● Online - Auto refresh"
+✅ Data muncul di Firebase Console
+
+TROUBLESHOOTING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+❌ "Firebase SDK not loaded"
+   → Pastikan ada internet, Firebase CDN ter-load
+
+❌ "Firebase not configured"
+   → Config di firebase-config.js belum diganti
+
+❌ "Permission denied"
+   → Cek Security Rules di Firebase Console
+   → Pastikan mode = TEST MODE
+
+❌ Data tidak masuk
+   → Cek databaseURL di config
+   → Pastikan formatnya: https://xxxxx-default-rtdb.firebaseio.com
+
+FITUR YANG AKTIF SETELAH SETUP:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌍 Global Leaderboard - Semua device lihat data yang sama
+🔄 Realtime Sync - Auto update saat ada score baru
+🥇 Top 20 Rankings - Dengan medali emas, perak, perunggu
+⏰ Time stamps - "baru saja", "5 menit lalu", dll
+📱 Toggle Local/Global - Switch antara lokal & global
+💾 Persistent - Data tersimpan selamanya di cloud
+
+OPTIONAL: Security Rules (Recommended)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Di Firebase Console → Realtime Database → Rules tab:
+
+{
+  "rules": {
+    "leaderboard": {
+      ".read": true,
+      ".write": true,
+      "$entry": {
+        ".validate": "newData.hasChildren(['name', 'score', 'timestamp'])"
+      }
+    }
+  }
+}
+
+════════════════════════════════════════════════════════════════
+Butuh bantuan? Cek console error atau baca FIREBASE_SETUP.md
+════════════════════════════════════════════════════════════════
+
+
+
+

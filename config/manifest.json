@@ -1,0 +1,13 @@
+{
+  "name": "PDSMAXVI",
+  "short_name": "PDSMAXVI",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#5c3c92",
+  "icons": [
+    { "src": "pdsmaxvi.jpg", "sizes": "512x512", "type": "image/jpeg" }
+  ]
+}
+
+

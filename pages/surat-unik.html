@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surat Unik - PDSMAXVI</title>
+  <meta name="description" content="Masukkan kode unikmu untuk membaca surat khusus untukmu.">
+  <link rel="canonical" href="surat-unik.html">
+  <meta property="og:title" content="Surat Unik - PDSMAXVI">
+  <meta property="og:description" content="Masukkan kode unikmu untuk membaca surat khusus.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../assets/pdsmaxvi.jpg">
+  <meta property="og:url" content="surat-unik.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Surat Unik - PDSMAXVI">
+  <meta name="twitter:description" content="Masukkan kode unikmu untuk membaca surat khusus.">
+  <meta name="twitter:image" content="../assets/pdsmaxvi.jpg">
+  <link rel="manifest" href="../config/manifest.json">
+  <meta name="theme-color" content="#5c3c92">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- <link rel="icon" href="favicon.png" type="image/png"> -->
+  <link rel="stylesheet" href="../config/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <button id="back-to-top" aria-label="Kembali ke atas" title="Back to top">↑</button>
+  <nav>
+    <div class="nav-inner container">
+      <div class="logo"><a href="../index.html" style="text-decoration:none;color:inherit;"><h4>PDSMAXVI</h4></a></div>
+      <ul class="nav-links" aria-hidden="true">
+        <li><a href="../index.html">Beranda</a></li>
+        <li><a href="pesan.html">Pesan</a></li>
+        <li><a href="struktur.html">Pengurus</a></li>
+        <li><a href="quiz.html">Kuis</a></li>
+        <li><a href="galeri.html">Timeline</a></li>
+        <li><a href="voting.html">Voting</a></li>
+        <li><a href="harapan.html">Harapan</a></li>
+        <li><a href="surat-unik.html" class="active">Surat Unik</a></li>
+        <li><a href="email-scheduler.html">✝ Email Scheduler</a></li>
+      </ul>
+      <div class="hamburger" role="button" aria-label="Menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div>
+    </div>
+  </nav>
+
+  <header class="hero hero-surat">
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Surat Unik untuk Kamu</h1>
+      <p>Masukkan kode unikmu untuk membaca pesan khusus</p>
+    </div>
+  </header>
+
+  <section class="container-section">
+    <div class="letter-container" data-aos="fade-up">
+      <h2 class="letter-title">Masukkan Kode Unik</h2>
+      <input type="text" id="kode-unik" class="text-input" placeholder="Contoh: X12-ABC">
+      <button id="cek-kode" class="btn-utama">Buka Surat</button>
+      <p class="kv-muted" style="margin-top:8px">Kode akan dibagikan oleh kakak-kakak. Simpan baik-baik ya!</p>
+
+      <div id="surat-hasil" style="display:none; margin-top:18px">
+        <div class="surat-card">
+          <h3 id="surat-judul"></h3>
+          <p id="surat-isi" class="surat-isi"></p>
+          <span id="surat-dari" class="surat-nama"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Perpisahan Angkatan XII - Semua Hak Cipta Dilindungi</p>
+    <div class="footer-links">
+      <a href="../index.html">Beranda</a> |
+      <a href="pesan.html">Pesan</a> |
+      <a href="surat-unik.html" class="active">Surat Unik</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+
+  <script src="../scripts/app.js"></script>
+  <script>
+    // Initialize AOS (with safety check and delay)
+    function initAOS() {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 1000,
+          once: true
+        });
+        console.log('✅ AOS initialized successfully');
+      } else {
+        console.warn('⚠️ AOS library not loaded, animations disabled');
+      }
+    }
+
+    // Try to initialize AOS immediately, then retry after delay
+    initAOS();
+    setTimeout(initAOS, 1000); // Retry after 1 second
+  </script>
+  <script>
+    // Demo mapping kode -> surat. Untuk produksi, bisa diambil dari file JSON terpisah.
+    const MAP_SURAT = {
+      "X12-ABC": { judul: "Untuk Kamu yang Tangguh", isi: "Tetap rendah hati dan setia. Kami percaya kamu akan melangkah jauh.", dari: "Kakak Angkatan XII" },
+      "X12-MUS": { judul: "Sang Pemurah Nada", isi: "Terus pakai talenta untuk menguatkan orang. Musikmu berharga.", dari: "Tim Musik" },
+      "X12-PRK": { judul: "Si Andal Perkap", isi: "Kerapihanmu menular. Terima kasih sudah jadi tulang punggung acara.", dari: "Sie Perkap" }
+    };
+
+    const kodeInput = document.getElementById('kode-unik');
+    const btn = document.getElementById('cek-kode');
+    const hasilWrap = document.getElementById('surat-hasil');
+    const judulEl = document.getElementById('surat-judul');
+    const isiEl = document.getElementById('surat-isi');
+    const dariEl = document.getElementById('surat-dari');
+
+    function tampilkanSurat(data){
+      judulEl.textContent = data.judul;
+      isiEl.textContent = data.isi;
+      dariEl.textContent = `- ${data.dari}`;
+      hasilWrap.style.display = 'block';
+    }
+
+    // auto-buka jika ada ?code= di URL
+    const params = new URLSearchParams(window.location.search);
+    const prefill = params.get('code');
+    if (prefill && MAP_SURAT[prefill]) {
+      kodeInput.value = prefill;
+      tampilkanSurat(MAP_SURAT[prefill]);
+    }
+
+    btn.addEventListener('click', () => {
+      const kode = kodeInput.value.trim();
+      if (!kode) { alert('Masukkan kode unik.'); return; }
+      const data = MAP_SURAT[kode];
+      if (!data) { alert('Kode tidak ditemukan. Pastikan sesuai huruf besar/kecil.'); return; }
+      tampilkanSurat(data);
+    });
+  </script>
+</body>
+</html>
+
+

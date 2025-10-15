@@ -1,0 +1,57 @@
+🎵 SPOTIFY EMBED PLAYLIST - INSTRUCTIONS 🎵
+
+📋 PLAYLIST YANG SUDAH TERINTEGRASI:
+- Playlist Spotify Anda sudah ter-embed langsung di website
+- ID Playlist: 05OP9IHw9m9EwV1DE0X4VS
+- Semua lagu dari playlist Spotify Anda akan muncul otomatis
+
+🔧 CARA MENGGUNAKAN:
+
+1. PLAYLIST SUDAH TERINTEGRASI:
+   - Website sudah menggunakan Spotify Embed
+   - Playlist Anda akan tampil langsung di website
+   - Pengunjung bisa play/pause langsung dari website
+
+2. GANTI PLAYLIST LAIN (OPSIONAL):
+   - Buka file pages/untukmu.html
+   - Cari iframe dengan src="https://open.spotify.com/embed/playlist/..."
+   - Ganti ID playlist di URL: 05OP9IHw9m9EwV1DE0X4VS
+   - Ganti dengan ID playlist Spotify Anda yang lain
+
+3. CUSTOMIZATION:
+   - Ganti nama playlist di HTML: "Playlist untukmu"
+   - Ubah theme dengan menambah &theme=1 (dark) atau &theme=0 (light)
+   - Atur ukuran dengan mengubah width dan height di iframe
+
+🎨 DESIGN EMBED:
+- Spotify player resmi ter-embed
+- Background mengikuti tema website (dark/light mode)
+- Border radius dan shadow untuk tampilan modern
+- Responsive design untuk mobile
+
+📱 RESPONSIVE:
+- Max-width 500px di desktop
+- Full-width di mobile
+- Height otomatis menyesuaikan
+- Touch-friendly controls
+
+✨ FEATURES EMBED:
+- Play/pause langsung dari website
+- Skip track, shuffle, repeat
+- Volume control
+- Progress bar
+- Track info real-time
+- Spotify branding resmi
+
+🔗 INTEGRATION:
+- Spotify Embed Player resmi
+- Tidak perlu JavaScript tambahan
+- Auto-sync dengan playlist Spotify Anda
+- Update otomatis ketika playlist diubah
+
+💡 KEUNGGULAN:
+- Playlist selalu up-to-date dengan Spotify Anda
+- Tidak perlu maintain lagu manual
+- Spotify player dengan fitur lengkap
+- Professional look dengan branding Spotify
+- Easy to customize playlist ID

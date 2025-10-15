@@ -1,0 +1,74 @@
+📸 INSTRUKSI UNTUK FOTO POST INSTAGRAM:
+
+1. Buat folder atau siapkan 9 foto untuk post Instagram
+2. Rename file foto menjadi:
+   - post1.jpg
+   - post2.jpg
+   - post3.jpg
+   - post4.jpg
+   - post5.jpg
+   - post6.jpg
+   - post7.jpg
+   - post8.jpg
+   - post9.jpg
+
+3. Simpan semua foto di: pages/images/
+
+💡 Saran foto untuk setiap post:
+
+POST 1 (Terima Kasih):
+- Foto sunset/sunrise yang romantis
+- Foto dengan tulisan "Terima Kasih"
+- Foto bunga atau alam yang indah
+
+POST 2 (Kejujuran):
+- Foto dengan quote tentang kejujuran
+- Foto yang menunjukkan kepolosan
+- Foto dengan tulisan motivasi
+
+POST 3 (Masa Depan):
+- Foto yang menunjukkan harapan
+- Foto dengan tulisan tentang masa depan
+- Foto langit atau bintang
+
+POST 4 (Pesan Terakhir):
+- Foto yang paling bermakna
+- Foto dengan quote cinta
+- Foto yang menunjukkan kedekatan
+
+POST 5 (Cinta):
+- Foto romantis
+- Foto dengan emoji hati
+- Foto yang menunjukkan kasih sayang
+
+POST 6 (Perasaan):
+- Foto yang menunjukkan perasaan
+- Foto dengan tulisan sweet
+- Foto yang emosional
+
+POST 7 (Istimewa):
+- Foto yang menunjukkan keistimewaan
+- Foto dengan tulisan "Istimewa"
+- Foto yang bermakna
+
+POST 8 (Waktu):
+- Foto yang menunjukkan waktu
+- Foto dengan tulisan tentang menunggu
+- Foto yang menunjukkan harapan
+
+POST 9 (Penutup):
+- Foto penutup yang sweet
+- Foto dengan tulisan "Dengan Cinta"
+- Foto yang berkesan
+
+🎨 Tips foto:
+- Ukuran: 1080x1080 px (square)
+- Format: JPG atau PNG
+- Kualitas: HD/High resolution
+- Style: Romantis, soft, atau aesthetic
+- Bisa pakai filter Instagram-style
+
+📱 Setelah foto diisi, halaman akan terlihat seperti Instagram feed yang nyata!
+
+
+

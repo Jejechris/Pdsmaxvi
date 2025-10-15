@@ -1,0 +1,118 @@
+════════════════════════════════════════════════════════════════
+🚀 CARA MENJALANKAN WEBSITE PDSMAXVI QUIZ
+════════════════════════════════════════════════════════════════
+
+MASALAH CORS ERROR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+❌ File tidak bisa dibuka langsung dengan double-click HTML
+   Karena browser block CORS untuk file:// protocol
+
+✅ SOLUSI: Jalankan dengan local web server
+
+════════════════════════════════════════════════════════════════
+
+CARA 1: Menggunakan Python (RECOMMENDED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Double-click file: start-server.bat
+   
+2. Browser otomatis buka, atau manual buka:
+   http://localhost:8000/quiz.html
+
+3. Untuk stop server: Tekan Ctrl+C di command prompt
+
+
+JIKA PYTHON BELUM TERINSTALL:
+-------------------------------------------------------------
+Download Python dari: https://www.python.org/downloads/
+Centang "Add to PATH" saat install
+
+════════════════════════════════════════════════════════════════
+
+CARA 2: Menggunakan VS Code Live Server
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Buka folder di VS Code
+2. Install extension: "Live Server" (by Ritwick Dey)
+3. Klik kanan file index.html atau quiz.html
+4. Pilih "Open with Live Server"
+
+════════════════════════════════════════════════════════════════
+
+CARA 3: Menggunakan Node.js http-server
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Install Node.js dulu (jika belum)
+2. Buka Command Prompt di folder ini
+3. Run: npx http-server -p 8000
+4. Buka: http://localhost:8000/quiz.html
+
+════════════════════════════════════════════════════════════════
+
+CARA 4: Menggunakan Browser Extension
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Chrome/Edge:
+- Install extension: "Web Server for Chrome"
+- Start server dari extension
+- Browse ke folder
+
+════════════════════════════════════════════════════════════════
+
+VERIFIKASI BERHASIL:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Buka Console (F12) dan cek:
+✅ TIDAK ADA error "CORS policy"
+✅ Ada log: "Firebase initialized successfully"
+✅ Ada log: "Questions loaded successfully"
+✅ Quiz bisa dimainkan
+✅ Leaderboard tampil
+
+════════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "python is not recognized"
+   → Install Python atau gunakan cara lain
+
+❌ Port 8000 sudah dipakai
+   → Ubah port di start-server.bat: 8000 → 8001
+
+❌ Firebase error "URL not configured"
+   → Sudah fixed! databaseURL sudah ditambahkan
+
+❌ Questions tidak muncul
+   → Pastikan jalankan via web server, bukan file://
+
+════════════════════════════════════════════════════════════════
+
+DEPLOYMENT KE HOSTING (OPTIONAL):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Untuk online production:
+
+1. Firebase Hosting (GRATIS):
+   - firebase login
+   - firebase init hosting
+   - firebase deploy
+
+2. Netlify (GRATIS):
+   - Drag & drop folder ke netlify.com
+
+3. GitHub Pages (GRATIS):
+   - Push ke GitHub repo
+   - Enable Pages di Settings
+
+4. Vercel (GRATIS):
+   - Connect GitHub repo
+   - Auto deploy
+
+════════════════════════════════════════════════════════════════
+Selamat mencoba! 🚀
+════════════════════════════════════════════════════════════════
+
+
+
+

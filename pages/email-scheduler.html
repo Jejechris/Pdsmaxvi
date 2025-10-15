@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>✝ Email Scheduler - PDSMAXVI</title>
+  <meta name="description" content="Jadwalkan pengingat dan pesan dengan hikmat, diserahkan kepada Tuhan. Tool untuk pelayanan PDSMAXVI.">
+  <link rel="canonical" href="email-scheduler.html">
+  <meta property="og:title" content="✝ Email Scheduler - PDSMAXVI">
+  <meta property="og:description" content="Jadwalkan pengingat dan pesan dengan hikmat, diserahkan kepada Tuhan.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="pdsmaxvi.jpg">
+  <meta property="og:url" content="email-scheduler.html">
+  <link rel="manifest" href="../config/manifest.json">
+  <meta name="theme-color" content="#5c3c92">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- <link rel="icon" href="favicon.png" type="image/png"> -->
+  <link rel="stylesheet" href="../config/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    /* Email Scheduler Custom Styles */
+    .email-scheduler-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .email-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(92, 60, 146, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
+      border-radius: 20px;
+      border: 2px solid rgba(92, 60, 146, 0.2);
+    }
+    
+    .email-header h1 {
+      color: var(--purple);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .cross-icon {
+      color: #d4af37;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .email-subtitle {
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .verse-box {
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+      border-left: 4px solid #d4af37;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--purple);
+      box-shadow: 0 4px 15px rgba(92, 60, 146, 0.1);
+    }
+    
+    .verse-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    
+    .verse-ref {
+      text-align: right;
+      font-size: 0.9rem;
+      color: var(--purple-600);
+      font-weight: 600;
+    }
+    
+    .email-form {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow-2);
+      margin-bottom: 2rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      color: var(--purple);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(92, 60, 146, 0.1);
+    }
+    
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .time-input-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .quick-times {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .quick-time-btn {
+      padding: 0.6rem;
+      background: #f8f9fa;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .quick-time-btn:hover {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+      transform: scale(1.05);
+    }
+    
+    .btn-schedule {
+      background: linear-gradient(135deg, var(--purple) 0%, var(--purple-600) 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    
+    .btn-schedule:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(92, 60, 146, 0.3);
+    }
+    
+    .scheduled-list {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow-2);
+    }
+    
+    .scheduled-item {
+      background: linear-gradient(to right, #ffffff 0%, #f8f9fa 100%);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--purple);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .scheduled-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 15px rgba(92, 60, 146, 0.1);
+    }
+    
+    .scheduled-item.sent {
+      border-left-color: #28a745;
+      background: linear-gradient(to right, #e8f5e9 0%, #f1f8f4 100%);
+    }
+    
+    .scheduled-item h3 {
+      color: var(--purple);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    
+    .scheduled-item p {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0.3rem 0;
+    }
+    
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+    }
+    
+    .status-badge.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-badge.terkirim {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-badge.dibatalkan {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .time-left {
+      color: var(--purple);
+      font-weight: 600;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+    
+    .actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-small {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-send-now {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+    }
+    
+    .btn-send-now:hover {
+      background: linear-gradient(135deg, #218838, #1fa881);
+    }
+    
+    .btn-cancel {
+      background: #dc3545;
+      color: white;
+    }
+    
+    .btn-cancel:hover {
+      background: #c82333;
+    }
+    
+    .alert {
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .alert-info {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #999;
+      font-size: 1.1rem;
+    }
+    
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--purple);
+    }
+    
+    .loading.active {
+      display: block;
+    }
+    
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--purple);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .footer-blessing {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+      border-radius: 15px;
+      border: 2px solid #d4af37;
+      color: var(--purple);
+    }
+    
+    .footer-blessing::before {
+      content: '✝';
+      display: block;
+      font-size: 2rem;
+      color: #d4af37;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .time-input-group {
+        grid-template-columns: 1fr;
+      }
+      .quick-times {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .email-header h1 {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-inner container">
+      <div class="logo" data-aos="fade-right" style="margin-right:auto;">
+        <a href="../index.html" style="text-decoration:none;color:inherit;"><h4>PDSMAXVI</h4></a>
+      </div>
+
+      <ul class="nav-links" aria-hidden="true">
+        <li><a href="../index.html">Beranda</a></li>
+        <li><a href="pesan.html">Pesan</a></li>
+        <li><a href="struktur.html">Pengurus</a></li>
+        <li><a href="quiz.html">Kuis</a></li>
+        <li><a href="galeri.html">Timeline</a></li>
+        <li><a href="voting.html">Voting</a></li>
+        <li><a href="harapan.html">Harapan</a></li>
+        <li><a href="surat-unik.html">Surat Unik</a></li>
+        <li><a href="email-scheduler.html" class="active">✝ Email Scheduler</a></li>
+      </ul>
+
+      <!-- HAMBURGER (3 garis) -->
+      <div class="hamburger" role="button" aria-label="Menu" data-aos="fade-left">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- EMAIL SCHEDULER CONTENT -->
+  <div class="email-scheduler-container">
+    <div class="email-header" data-aos="fade-up">
+      <h1><span class="cross-icon">✝</span> Email Scheduler</h1>
+      <p class="email-subtitle">Jadwalkan pengingat dan pesan dengan hikmat, diserahkan kepada Tuhan</p>
+      
+      <div class="verse-box">
+        <div class="verse-text">
+          "Serahkanlah segala kekuatiranmu kepada-Nya, sebab Ia yang memelihara kamu."
+        </div>
+        <div class="verse-ref">— 1 Petrus 5:7</div>
+      </div>
+    </div>
+
+    <div id="alertContainer"></div>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Memproses dengan iman...</p>
+    </div>
+
+    <div class="email-form" data-aos="fade-up" data-aos-delay="100">
+      <form id="emailForm">
+        <div class="form-group">
+          <label for="emailTo">📮 Email Tujuan</label>
+          <input 
+            type="email" 
+            id="emailTo" 
+            placeholder="contoh@email.com" 
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="subject">📝 Subject Email</label>
+          <input 
+            type="text" 
+            id="subject" 
+            placeholder="Masukkan subject email" 
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="message">✉️ Pesan</label>
+          <textarea 
+            id="message" 
+            placeholder="Tulis pesan yang ingin Anda kirim..."
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>⏰ Waktu Pengiriman</label>
+          <select id="timeMode" onchange="toggleTimeMode()">
+            <option value="delay">Delay (dari sekarang)</option>
+            <option value="specific">Waktu Spesifik</option>
+          </select>
+        </div>
+
+        <div id="delayMode" class="form-group">
+          <div class="time-input-group">
+            <div>
+              <label for="days">Hari</label>
+              <input type="number" id="days" min="0" value="0" placeholder="0">
+            </div>
+            <div>
+              <label for="hours">Jam</label>
+              <input type="number" id="hours" min="0" value="0" placeholder="0">
+            </div>
+            <div>
+              <label for="minutes">Menit</label>
+              <input type="number" id="minutes" min="0" value="30" placeholder="30">
+            </div>
+          </div>
+          <div class="quick-times">
+            <button type="button" class="quick-time-btn" onclick="setQuickTime(0, 0, 10)">10 menit</button>
+            <button type="button" class="quick-time-btn" onclick="setQuickTime(0, 0, 30)">30 menit</button>
+            <button type="button" class="quick-time-btn" onclick="setQuickTime(0, 1, 0)">1 jam</button>
+            <button type="button" class="quick-time-btn" onclick="setQuickTime(0, 6, 0)">6 jam</button>
+            <button type="button" class="quick-time-btn" onclick="setQuickTime(1, 0, 0)">1 hari</button>
+            <button type="button" class="quick-time-btn" onclick="setQuickTime(7, 0, 0)">1 minggu</button>
+            <button type="button" class="quick-time-btn" onclick="setQuickTime(30, 0, 0)">1 bulan</button>
+            <button type="button" class="quick-time-btn" onclick="setQuickTime(365, 0, 0)">1 tahun</button>
+          </div>
+        </div>
+
+        <div id="specificMode" class="form-group" style="display: none;">
+          <label for="specificTime">Tanggal & Waktu</label>
+          <input type="datetime-local" id="specificTime">
+        </div>
+
+        <button type="submit" class="btn-schedule" id="submitBtn">
+          🙏 Jadwalkan dengan Iman
+        </button>
+      </form>
+    </div>
+
+    <div class="scheduled-list" data-aos="fade-up" data-aos-delay="200">
+      <h2 style="color: var(--purple); margin-bottom: 1.5rem; text-align: center;">📅 Pengingat yang Telah Diserahkan</h2>
+      <div id="scheduledContainer">
+        <div class="empty-state">🕊️ Belum ada pengingat yang diserahkan kepada Tuhan</div>
+      </div>
+    </div>
+
+    <div class="footer-blessing" data-aos="fade-up" data-aos-delay="300">
+      <strong style="font-size: 1.2rem;">Tuhan memberkati pelayanan Anda</strong>
+      <p style="margin-top: 1rem; font-size: 1rem; color: #555;">
+        "Karena Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu,<br>
+        demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan."
+      </p>
+      <p style="font-size: 0.9rem; color: var(--purple-600); margin-top: 0.5rem;">— Yeremia 29:11</p>
+    </div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button id="back-to-top" aria-label="Kembali ke atas" title="Back to top">↑</button>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 PDSMAXVI - Email Scheduler Tool</p>
+    
+    <div class="footer-links">
+      <a href="../index.html">Beranda</a> |
+      <a href="pesan.html">Pesan</a> |
+      <a href="email-scheduler.html">Email Scheduler</a>
+    </div>
+
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize AOS (with safety check and delay)
+    function initAOS() {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-in-out',
+          once: true
+        });
+        console.log('✅ AOS initialized successfully');
+      } else {
+        console.warn('⚠️ AOS library not loaded, animations disabled');
+      }
+    }
+
+    // Try to initialize AOS immediately, then retry after delay
+    initAOS();
+    setTimeout(initAOS, 1000); // Retry after 1 second
+
+    // Email Scheduler JavaScript
+    let updateInterval;
+    let currentEmails = [];
+
+    function toggleTimeMode() {
+      const mode = document.getElementById('timeMode').value;
+      document.getElementById('delayMode').style.display = mode === 'delay' ? 'block' : 'none';
+      document.getElementById('specificMode').style.display = mode === 'specific' ? 'block' : 'none';
+    }
+
+    function setQuickTime(days, hours, minutes) {
+      document.getElementById('days').value = days;
+      document.getElementById('hours').value = hours;
+      document.getElementById('minutes').value = minutes;
+      showAlert('⏱️ Waktu diset: ' + formatTime(days, hours, minutes), 'info');
+    }
+
+    function formatTime(days, hours, minutes) {
+      let parts = [];
+      if (days > 0) parts.push(days + ' hari');
+      if (hours > 0) parts.push(hours + ' jam');
+      if (minutes > 0) parts.push(minutes + ' menit');
+      return parts.join(' ') || '0 menit';
+    }
+
+    function showAlert(message, type = 'success') {
+      const alertContainer = document.getElementById('alertContainer');
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      
+      // Tambah emoji Kristiani
+      const prefix = type === 'success' ? '🙏 ' : type === 'error' ? '💫 ' : '✝ ';
+      alert.textContent = prefix + message;
+      
+      alertContainer.appendChild(alert);
+      setTimeout(() => alert.remove(), 5000);
+    }
+
+    function showLoading(show) {
+      document.getElementById('loading').className = show ? 'loading active' : 'loading';
+      document.getElementById('submitBtn').disabled = show;
+    }
+
+    function formatTimeLeft(timestamp) {
+      const now = Date.now();
+      const diff = timestamp - now;
+      
+      if (diff <= 0) return '⏰ Waktunya sekarang!';
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      
+      let result = '⏱️ ';
+      if (days > 0) result += `${days} hari `;
+      if (hours > 0) result += `${hours} jam `;
+      if (minutes > 0 || (days === 0 && hours === 0)) result += `${minutes} menit `;
+      
+      return result.trim();
+    }
+
+    function renderScheduledEmails(data) {
+      const container = document.getElementById('scheduledContainer');
+      
+      if (!data.success || data.emails.length === 0) {
+        container.innerHTML = '<div class="empty-state">🕊️ Belum ada pengingat yang diserahkan kepada Tuhan</div>';
+        return;
+      }
+      
+      currentEmails = data.emails;
+      const now = Date.now();
+      const pendingEmails = data.emails.filter(e => e.status === 'Pending');
+      const otherEmails = data.emails.filter(e => e.status !== 'Pending');
+      const sortedEmails = [...pendingEmails, ...otherEmails];
+      
+      container.innerHTML = sortedEmails.map(email => {
+        const statusClass = email.status.toLowerCase().replace(/[^a-z]/g, '');
+        const itemClass = email.status === 'Terkirim' ? 'sent' : 
+                         email.status === 'Dibatalkan' ? 'dibatalkan' : 
+                         email.status.includes('Error') ? 'error' : '';
+        
+        const showActions = email.status === 'Pending' && email.scheduledTime > now;
+        
+        return `
+          <div class="scheduled-item ${itemClass}">
+            <h3>📧 ${escapeHtml(email.subject)}</h3>
+            <p><strong>Kepada:</strong> ${escapeHtml(email.to)}</p>
+            <p><strong>Pesan:</strong> ${escapeHtml(email.message.substring(0, 150))}${email.message.length > 150 ? '...' : ''}</p>
+            <p><strong>Dijadwalkan:</strong> ${new Date(email.scheduledTime).toLocaleString('id-ID')}</p>
+            <span class="status-badge ${statusClass}">${escapeHtml(email.status)}</span>
+            ${email.status === 'Pending' ? `<div class="time-left">${formatTimeLeft(email.scheduledTime)}</div>` : ''}
+            ${showActions ? `
+              <div class="actions">
+                <button class="btn-small btn-send-now" onclick="sendNow('${email.id}')">
+                  📤 Kirim Sekarang
+                </button>
+                <button class="btn-small btn-cancel" onclick="cancelEmail('${email.id}')">
+                  ❌ Batalkan
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function loadEmails() {
+      // Simulasi data untuk demo (ganti dengan API call ke Google Apps Script)
+      const mockData = {
+        success: true,
+        emails: []
+      };
+      renderScheduledEmails(mockData);
+    }
+
+    function sendNow(emailId) {
+      if (!confirm('Kirim pengingat ini sekarang dengan berkat Tuhan?')) return;
+      showAlert('Fitur ini memerlukan integrasi dengan Google Apps Script', 'info');
+    }
+
+    function cancelEmail(emailId) {
+      if (!confirm('Batalkan pengingat ini?')) return;
+      showAlert('Fitur ini memerlukan integrasi dengan Google Apps Script', 'info');
+    }
+
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const emailTo = document.getElementById('emailTo').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      const timeMode = document.getElementById('timeMode').value;
+      
+      let scheduledTime;
+      
+      if (timeMode === 'delay') {
+        const days = parseInt(document.getElementById('days').value) || 0;
+        const hours = parseInt(document.getElementById('hours').value) || 0;
+        const minutes = parseInt(document.getElementById('minutes').value) || 0;
+        
+        if (days === 0 && hours === 0 && minutes === 0) {
+          showAlert('Mohon masukkan waktu minimal 1 menit untuk menyerahkannya kepada Tuhan', 'error');
+          return;
+        }
+        
+        const delayMs = (days * 24 * 60 * 60 * 1000) + (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
+        scheduledTime = Date.now() + delayMs;
+      } else {
+        const specificTime = document.getElementById('specificTime').value;
+        if (!specificTime) {
+          showAlert('⚠️ Mohon pilih tanggal dan waktu', 'error');
+          return;
+        }
+        scheduledTime = new Date(specificTime).getTime();
+        
+        if (scheduledTime <= Date.now()) {
+          showAlert('⚠️ Waktu harus di masa depan', 'error');
+          return;
+        }
+      }
+      
+      showLoading(true);
+      
+      // Simulasi pengiriman (ganti dengan API call ke Google Apps Script)
+      setTimeout(() => {
+        showLoading(false);
+        showAlert(`Email berhasil dijadwalkan untuk ${new Date(scheduledTime).toLocaleString('id-ID')}. Tuhan memberkati!`, 'success');
+        document.getElementById('emailForm').reset();
+        document.getElementById('days').value = 0;
+        document.getElementById('hours').value = 0;
+        document.getElementById('minutes').value = 30;
+        loadEmails();
+      }, 2000);
+    });
+
+    // Auto-refresh countdown setiap 30 detik
+    function startAutoRefresh() {
+      loadEmails();
+      updateInterval = setInterval(() => {
+        if (currentEmails.length > 0) {
+          renderScheduledEmails({ success: true, emails: currentEmails });
+        }
+      }, 30000);
+    }
+
+    // Initialize
+    startAutoRefresh();
+
+    // Set default datetime
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(9, 0, 0, 0);
+    document.getElementById('specificTime').value = tomorrow.toISOString().slice(0, 16);
+  </script>
+
+  <!-- GLOBAL APP JS -->
+  <script src="../scripts/app.js"></script>
+</body>
+</html>
+

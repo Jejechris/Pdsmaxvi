@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untukmu</title>
+  <meta name="description" content="Sebuah pesan khusus">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="../config/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    /* Instagram-like Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      color: #262626;
+      line-height: 1.6;
+    }
+
+    /* Hide navigation */
+    nav {
+      display: none;
+    }
+
+    /* Main Container */
+    .instagram-container {
+      max-width: 614px;
+      margin: 0 auto;
+      background: #fafafa;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .profile-header {
+      background: white;
+      border-bottom: 1px solid #dbdbdb;
+      padding: 20px 16px;
+      margin-bottom: 24px;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .profile-avatar {
+      width: 77px;
+      height: 77px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      padding: 2px;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .profile-details h1 {
+      font-size: 28px;
+      font-weight: 300;
+      color: #262626;
+      margin-bottom: 4px;
+    }
+
+    .profile-stats {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-weight: 600;
+      font-size: 18px;
+      color: #262626;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #8e8e8e;
+    }
+
+    .profile-bio {
+      font-size: 14px;
+      color: #262626;
+      line-height: 1.4;
+    }
+
+    /* Stories */
+    .stories-section {
+      background: white;
+      border-bottom: 1px solid #dbdbdb;
+      padding: 16px 0;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .story-item {
+      display: inline-block;
+      width: 66px;
+      text-align: center;
+      margin: 0 8px;
+      vertical-align: top;
+    }
+
+    .story-avatar {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      padding: 2px;
+      margin-bottom: 8px;
+    }
+
+    .story-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .story-name {
+      font-size: 12px;
+      color: #262626;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 66px;
+    }
+
+    /* Posts Grid */
+    .posts-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 24px;
+    }
+
+    .post-item {
+      aspect-ratio: 1;
+      background: white;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-item:hover {
+      opacity: 0.9;
+    }
+
+    .post-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .post-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .post-item:hover .post-overlay {
+      opacity: 1;
+    }
+
+    .post-stats {
+      display: flex;
+      gap: 24px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* Post Modal */
+    .post-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .post-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 935px;
+      max-height: 90vh;
+      width: 90%;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .modal-image {
+      flex: 1;
+      min-height: 400px;
+      background: #fafafa;
+    }
+
+    .modal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-sidebar {
+      width: 335px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      padding: 16px;
+      border-bottom: 1px solid #dbdbdb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      padding: 1px;
+    }
+
+    .modal-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .modal-username {
+      font-weight: 600;
+      font-size: 14px;
+      color: #262626;
+    }
+
+    .modal-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #8e8e8e;
+    }
+
+    .modal-comments {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .comment {
+      margin-bottom: 16px;
+    }
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .comment-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      padding: 1px;
+    }
+
+    .comment-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .comment-username {
+      font-weight: 600;
+      font-size: 14px;
+      color: #262626;
+    }
+
+    .comment-text {
+      font-size: 14px;
+      color: #262626;
+      line-height: 1.4;
+      margin-left: 32px;
+    }
+
+    .modal-actions {
+      padding: 16px;
+      border-top: 1px solid #dbdbdb;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #262626;
+      transition: color 0.2s ease;
+    }
+
+    .action-btn.liked {
+      color: #ed4956;
+    }
+
+    .action-btn:hover {
+      color: #8e8e8e;
+    }
+
+    .likes-count {
+      font-weight: 600;
+      font-size: 14px;
+      color: #262626;
+      margin-bottom: 8px;
+    }
+
+    .post-date {
+      font-size: 10px;
+      color: #8e8e8e;
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+
+    /* Music Player */
+    .music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      border-radius: 25px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .music-player button {
+      background: #262626;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .music-player button:hover {
+      background: #8e8e8e;
+    }
+
+    .music-info {
+      color: #262626;
+      font-size: 12px;
+    }
+
+    .music-info .song-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .music-info .artist {
+      color: #8e8e8e;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .instagram-container {
+        max-width: 100%;
+      }
+
+      .modal-content {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        max-height: 100vh;
+      }
+
+      .modal-sidebar {
+        width: 100%;
+      }
+
+      .modal-image {
+        display: none;
+      }
+
+      .profile-stats {
+        gap: 20px;
+      }
+
+      .posts-section {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #dbdbdb;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8e8e8e;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="instagram-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-info">
+        <div class="profile-avatar">
+          <img src="images/placeholder.svg" alt="Profile">
+        </div>
+        <div class="profile-details">
+          <h1>kakangkatanxii</h1>
+          <div class="profile-stats">
+            <div class="stat">
+              <div class="stat-number">12</div>
+              <div class="stat-label">posts</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">150</div>
+              <div class="stat-label">followers</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">89</div>
+              <div class="stat-label">following</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-bio">
+        💕 Untuk adik kelas yang berani mengungkapkan perasaan 💕<br>
+        📚 Angkatan XII PDSMAXVI<br>
+        ✨ Pesan dari hati dengan cinta tulus ✨
+      </div>
+    </div>
+
+    <!-- Stories Section -->
+    <div class="stories-section">
+      <div class="story-item">
+        <div class="story-avatar">
+          <img src="images/placeholder.svg" alt="Story">
+        </div>
+        <div class="story-name">Terima Kasih</div>
+      </div>
+      <div class="story-item">
+        <div class="story-avatar">
+          <img src="images/placeholder.svg" alt="Story">
+        </div>
+        <div class="story-name">Kejujuran</div>
+      </div>
+      <div class="story-item">
+        <div class="story-avatar">
+          <img src="images/placeholder.svg" alt="Story">
+        </div>
+        <div class="story-name">Masa Depan</div>
+      </div>
+      <div class="story-item">
+        <div class="story-avatar">
+          <img src="images/placeholder.svg" alt="Story">
+        </div>
+        <div class="story-name">Pesan Terakhir</div>
+      </div>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="posts-section">
+      <!-- Post 1 -->
+      <div class="post-item" onclick="openModal(1)">
+        <img src="images/post1.jpg" alt="Post 1" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 24</span>
+            <span><i class="fas fa-comment"></i> 8</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 2 -->
+      <div class="post-item" onclick="openModal(2)">
+        <img src="images/post2.jpg" alt="Post 2" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 31</span>
+            <span><i class="fas fa-comment"></i> 12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 3 -->
+      <div class="post-item" onclick="openModal(3)">
+        <img src="images/post3.jpg" alt="Post 3" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 18</span>
+            <span><i class="fas fa-comment"></i> 5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 4 -->
+      <div class="post-item" onclick="openModal(4)">
+        <img src="images/post4.jpg" alt="Post 4" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 42</span>
+            <span><i class="fas fa-comment"></i> 15</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 5 -->
+      <div class="post-item" onclick="openModal(5)">
+        <img src="images/post5.jpg" alt="Post 5" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 27</span>
+            <span><i class="fas fa-comment"></i> 9</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 6 -->
+      <div class="post-item" onclick="openModal(6)">
+        <img src="images/post6.jpg" alt="Post 6" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 35</span>
+            <span><i class="fas fa-comment"></i> 11</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 7 -->
+      <div class="post-item" onclick="openModal(7)">
+        <img src="images/post7.jpg" alt="Post 7" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 29</span>
+            <span><i class="fas fa-comment"></i> 7</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 8 -->
+      <div class="post-item" onclick="openModal(8)">
+        <img src="images/post8.jpg" alt="Post 8" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 38</span>
+            <span><i class="fas fa-comment"></i> 13</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post 9 -->
+      <div class="post-item" onclick="openModal(9)">
+        <img src="images/post9.jpg" alt="Post 9" onerror="this.src='images/placeholder.svg'">
+        <div class="post-overlay">
+          <div class="post-stats">
+            <span><i class="fas fa-heart"></i> 22</span>
+            <span><i class="fas fa-comment"></i> 6</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post Modal -->
+  <div class="post-modal" id="postModal">
+    <div class="modal-content">
+      <div class="modal-image">
+        <img id="modalImage" src="" alt="Post">
+      </div>
+      <div class="modal-sidebar">
+        <div class="modal-header">
+          <div class="modal-avatar">
+            <img src="images/placeholder.svg" alt="Profile">
+          </div>
+          <div class="modal-username">kakangkatanxii</div>
+          <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-comments" id="modalComments">
+          <!-- Comments will be loaded here -->
+        </div>
+        <div class="modal-actions">
+          <div class="action-buttons">
+            <button class="action-btn" onclick="toggleLike()">
+              <i class="far fa-heart" id="likeIcon"></i>
+            </button>
+            <button class="action-btn">
+              <i class="far fa-comment"></i>
+            </button>
+            <button class="action-btn">
+              <i class="far fa-paper-plane"></i>
+            </button>
+            <button class="action-btn" style="margin-left: auto;">
+              <i class="far fa-bookmark"></i>
+            </button>
+          </div>
+          <div class="likes-count" id="likesCount">0 likes</div>
+          <div class="post-date" id="postDate">Just now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Music Player -->
+  <div class="music-player">
+    <button id="playPauseBtn" onclick="toggleMusic()">
+      <i id="playPauseIcon" class="fas fa-play"></i>
+    </button>
+    <div class="music-info">
+      <div class="song-title">About You</div>
+      <div class="artist">The 1975</div>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="backgroundMusic" loop preload="metadata">
+    <source src="images/about-you-1975.mp3" type="audio/mpeg">
+    <source src="images/about-you-1975.mp3" type="audio/mp3">
+    <p>Your browser does not support the audio element.</p>
+  </audio>
+
+  <!-- Scripts -->
+  <script src="../scripts/app.js"></script>
+  
+  <script>
+    // Post data
+    const posts = [
+      {
+        image: 'images/post1.jpg',
+        caption: 'Halo sayang... Aku ingin mengucapkan terima kasih yang sebesar-besarnya untuk perasaan indah yang kau berikan. Ketika aku tahu bahwa ada seseorang yang memandangku dengan mata penuh kasih, hatiku bergetar dengan kebahagiaan yang tak terkatakan. 💕',
+        likes: 24,
+        comments: [
+          { username: 'adikkelas', text: 'Kak, makasih banget udah bales 😭💕' },
+          { username: 'temankelas', text: 'Aww ini sweet banget ❤️' }
+        ],
+        date: '2 hours ago'
+      },
+      {
+        image: 'images/post2.jpg',
+        caption: 'Keberanianmu untuk mengungkapkan perasaan adalah hal yang sangat mulia. Di dunia yang penuh dengan permainan dan kepura-puraan, kejujuran seperti milikmu adalah mutiara yang langka. ✨',
+        likes: 31,
+        comments: [
+          { username: 'adikkelas', text: 'Aku nggak nyangka kak bakal respon 😳' },
+          { username: 'sahabat', text: 'Ini bener-bener dari hati ya kak' }
+        ],
+        date: '4 hours ago'
+      },
+      {
+        image: 'images/post3.jpg',
+        caption: 'Meskipun saat ini kita berada di jalan yang berbeda, aku ingin kau tahu bahwa perasaanmu tidak akan pernah sia-sia. Setiap cinta yang tulus akan selalu menemukan jalannya. 💝',
+        likes: 18,
+        comments: [
+          { username: 'adikkelas', text: 'Aku harap suatu hari nanti bisa deket lagi sama kak 🤗' }
+        ],
+        date: '6 hours ago'
+      },
+      {
+        image: 'images/post4.jpg',
+        caption: 'Jangan pernah berubah, jangan pernah kehilangan kejujuran dan kepolosanmu. Dunia membutuhkan lebih banyak orang seperti kau - yang berani mencintai dengan tulus. 💕',
+        likes: 42,
+        comments: [
+          { username: 'adikkelas', text: 'Kak ini bikin aku nangis happy 😭❤️' },
+          { username: 'teman', text: 'Kak angkatan XII emang the best!' },
+          { username: 'adikkelas', text: 'Aku janji bakal jadi orang yang lebih baik lagi' }
+        ],
+        date: '1 day ago'
+      },
+      {
+        image: 'images/post5.jpg',
+        caption: 'Terima kasih telah mengajariku tentang cinta yang sederhana namun bermakna. Kau akan selalu memiliki tempat khusus di hatiku, sekarang dan selamanya. 🌟',
+        likes: 27,
+        comments: [
+          { username: 'adikkelas', text: 'Kak juga selalu ada di hati aku 💖' }
+        ],
+        date: '2 days ago'
+      },
+      {
+        image: 'images/post6.jpg',
+        caption: 'Perasaanmu yang tulus dan murni telah menyentuh hatiku dengan cara yang sangat istimewa. Kau tidak tahu betapa berharganya itu bagiku. 💖',
+        likes: 35,
+        comments: [
+          { username: 'adikkelas', text: 'Aku nggak nyangka perasaan aku beneran didenger sama kak' },
+          { username: 'bestie', text: 'Ini romantis banget ya 😍' }
+        ],
+        date: '3 days ago'
+      },
+      {
+        image: 'images/post7.jpg',
+        caption: 'Aku menghargai setiap kata, setiap tatapan, dan setiap momen di mana kau menunjukkan kepadaku bahwa aku berarti. Itu membuatku merasa istimewa. ✨',
+        likes: 29,
+        comments: [
+          { username: 'adikkelas', text: 'Kak emang istimewa banget buat aku 💕' }
+        ],
+        date: '4 days ago'
+      },
+      {
+        image: 'images/post8.jpg',
+        caption: 'Mungkin suatu saat nanti, ketika waktunya tepat, kita akan bisa melanjutkan perjalanan ini bersama-sama. Sampai saat itu tiba, jaga hatimu dengan baik. 🌙',
+        likes: 38,
+        comments: [
+          { username: 'adikkelas', text: 'Aku tunggu waktunya kak 💫' },
+          { username: 'sahabat', text: 'Ini bener-bener sweet banget' }
+        ],
+        date: '5 days ago'
+      },
+      {
+        image: 'images/post9.jpg',
+        caption: 'Dengan cinta, Kak Angkatan XII 💕✨',
+        likes: 22,
+        comments: [
+          { username: 'adikkelas', text: 'Love you too kak! ❤️' }
+        ],
+        date: '1 week ago'
+      }
+    ];
+
+    // Music Controls
+    const audio = document.getElementById('backgroundMusic');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    let isPlaying = false;
+
+    // Check if audio file exists
+    function checkAudioFile() {
+      const testAudio = new Audio('images/about-you-1975.mp3');
+      
+      testAudio.addEventListener('error', function(e) {
+        console.log('❌ Audio file error:', e);
+        console.log('❌ Error details:', {
+          error: e.target.error,
+          networkState: e.target.networkState,
+          readyState: e.target.readyState
+        });
+        
+        // Show user-friendly message
+        const musicPlayer = document.querySelector('.music-player');
+        musicPlayer.innerHTML = `
+          <div style="color: #ed4956; font-size: 12px; padding: 8px;">
+            <i class="fas fa-exclamation-triangle"></i>
+            Audio tidak dapat dimuat
+          </div>
+        `;
+      });
+      
+      testAudio.addEventListener('loadeddata', function() {
+        console.log('✅ Audio file loaded successfully');
+        console.log('✅ Audio duration:', testAudio.duration, 'seconds');
+      });
+      
+      testAudio.addEventListener('loadstart', function() {
+        console.log('🔄 Loading audio file...');
+      });
+    }
+
+    function toggleMusic() {
+      console.log('🎵 Toggle music clicked');
+      console.log('🎵 Audio element:', audio);
+      console.log('🎵 Audio src:', audio.src);
+      console.log('🎵 Audio networkState:', audio.networkState);
+      console.log('🎵 Audio readyState:', audio.readyState);
+      
+      if (isPlaying) {
+        audio.pause();
+        playPauseIcon.className = 'fas fa-play';
+        isPlaying = false;
+        console.log('⏸️ Music paused');
+      } else {
+        console.log('▶️ Attempting to play music...');
+        audio.play().then(() => {
+          console.log('✅ Music started successfully');
+          playPauseIcon.className = 'fas fa-pause';
+          isPlaying = true;
+        }).catch(e => {
+          console.log('❌ Audio play failed:', e);
+          console.log('❌ Error name:', e.name);
+          console.log('❌ Error message:', e.message);
+          
+          if (e.name === 'NotAllowedError') {
+            alert('Klik tombol play untuk memutar musik "About You" - The 1975');
+          } else if (e.name === 'NotSupportedError') {
+            alert('File audio tidak didukung atau tidak ditemukan. Pastikan file "about-you-1975.mp3" ada di folder images/');
+          } else {
+            alert('Gagal memutar audio. Error: ' + e.message);
+          }
+        });
+      }
+    }
+
+    // Auto-play on user interaction
+    document.addEventListener('click', function() {
+      if (!isPlaying) {
+        audio.play().then(() => {
+          playPauseIcon.className = 'fas fa-pause';
+          isPlaying = true;
+        }).catch(e => {
+          console.log('❌ Auto-play blocked:', e);
+        });
+      }
+    }, { once: true });
+
+    // Check audio file on page load
+    checkAudioFile();
+
+    // Modal functions
+    function openModal(postIndex) {
+      const modal = document.getElementById('postModal');
+      const post = posts[postIndex - 1];
+      
+      document.getElementById('modalImage').src = post.image;
+      document.getElementById('likesCount').textContent = `${post.likes} likes`;
+      document.getElementById('postDate').textContent = post.date;
+      
+      // Load comments
+      const commentsContainer = document.getElementById('modalComments');
+      commentsContainer.innerHTML = '';
+      
+      // Add caption
+      const captionComment = document.createElement('div');
+      captionComment.className = 'comment';
+      captionComment.innerHTML = `
+        <div class="comment-header">
+          <div class="comment-avatar">
+            <img src="images/placeholder.svg" alt="Profile">
+          </div>
+          <div class="comment-username">kakangkatanxii</div>
+        </div>
+        <div class="comment-text">${post.caption}</div>
+      `;
+      commentsContainer.appendChild(captionComment);
+      
+      // Add other comments
+      post.comments.forEach(comment => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        commentDiv.innerHTML = `
+          <div class="comment-header">
+            <div class="comment-avatar">
+              <img src="images/placeholder.svg" alt="Profile">
+            </div>
+            <div class="comment-username">${comment.username}</div>
+          </div>
+          <div class="comment-text">${comment.text}</div>
+        `;
+        commentsContainer.appendChild(commentDiv);
+      });
+      
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('postModal').classList.remove('active');
+    }
+
+    function toggleLike() {
+      const likeIcon = document.getElementById('likeIcon');
+      const likesCount = document.getElementById('likesCount');
+      const currentLikes = parseInt(likesCount.textContent);
+      
+      if (likeIcon.classList.contains('liked')) {
+        likeIcon.className = 'far fa-heart';
+        likeIcon.classList.remove('liked');
+        likesCount.textContent = `${currentLikes - 1} likes`;
+      } else {
+        likeIcon.className = 'fas fa-heart liked';
+        likeIcon.classList.add('liked');
+        likesCount.textContent = `${currentLikes + 1} likes`;
+      }
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('postModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+
+    console.log('📱 Instagram-style page loaded successfully!');
+  </script>
+</body>
+</html>

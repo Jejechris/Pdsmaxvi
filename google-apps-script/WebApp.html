@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Scheduler - Google Apps Script</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      border-top: 4px solid #d4af37;
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      color: #1e3c72;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-shadow: 1px 1px 2px rgba(212, 175, 55, 0.2);
+    }
+    .cross-icon {
+      color: #d4af37;
+      font-size: 28px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #d4af37, #f4d03f);
+      color: #1e3c72;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    }
+    .verse-box {
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+      border-left: 4px solid #d4af37;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-style: italic;
+      color: #1e3c72;
+      box-shadow: 0 2px 10px rgba(30, 60, 114, 0.1);
+    }
+    .verse-box::before {
+      content: '✝';
+      color: #d4af37;
+      font-size: 20px;
+      margin-right: 10px;
+      font-style: normal;
+    }
+    .verse-text {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 5px;
+    }
+    .verse-ref {
+      text-align: right;
+      font-size: 12px;
+      color: #2a5298;
+      font-weight: 600;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .time-input-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      border-bottom: 3px solid #d4af37;
+    }
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(30, 60, 114, 0.4);
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .scheduled-list {
+      margin-top: 40px;
+    }
+    .scheduled-item {
+      background: linear-gradient(to right, #ffffff 0%, #f8f9fa 100%);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border-left: 4px solid #d4af37;
+      transition: transform 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .scheduled-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+    }
+    .scheduled-item.sent {
+      border-left-color: #28a745;
+      background: linear-gradient(to right, #e8f5e9 0%, #f1f8f4 100%);
+    }
+    .scheduled-item.dibatalkan {
+      border-left-color: #ffc107;
+      background: #fff3cd;
+    }
+    .scheduled-item.error {
+      border-left-color: #f5576c;
+      background: #f8d7da;
+    }
+    .scheduled-item h3 {
+      color: #333;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    .scheduled-item p {
+      color: #666;
+      font-size: 14px;
+      margin: 5px 0;
+    }
+    .scheduled-item .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 10px 0;
+    }
+    .status-badge.pending { background: #fff3cd; color: #856404; }
+    .status-badge.terkirim { background: #d4edda; color: #155724; }
+    .status-badge.dibatalkan { background: #f8d7da; color: #721c24; }
+    .status-badge.error { background: #f8d7da; color: #721c24; }
+    .scheduled-item .time-left {
+      color: #1e3c72;
+      font-weight: 600;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    .scheduled-item .actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-small {
+      padding: 8px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-cancel {
+      background: #f5576c;
+      color: white;
+    }
+    .btn-cancel:hover {
+      background: #e04357;
+    }
+    .btn-send-now {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+    }
+    .btn-send-now:hover {
+      background: linear-gradient(135deg, #218838, #1fa881);
+    }
+    .alert {
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .alert-info {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+      font-size: 18px;
+    }
+    .quick-times {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .quick-time-btn {
+      padding: 8px;
+      background: #f0f0f0;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    .quick-time-btn:hover {
+      background: linear-gradient(135deg, #d4af37, #f4d03f);
+      color: #1e3c72;
+      border-color: #d4af37;
+      transform: scale(1.05);
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #667eea;
+    }
+    .loading.active {
+      display: block;
+    }
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #d4af37;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .info-box {
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+      border-left: 4px solid #d4af37;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.1);
+    }
+    .info-box h4 {
+      color: #1e3c72;
+      margin-bottom: 8px;
+    }
+    .info-box h4::before {
+      content: '🕊️ ';
+      margin-right: 5px;
+    }
+    .info-box p {
+      color: #555;
+      font-size: 14px;
+      margin: 5px 0;
+    }
+    .footer-blessing {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f7 100%);
+      border-radius: 10px;
+      border: 2px solid #d4af37;
+      color: #1e3c72;
+    }
+    .footer-blessing::before {
+      content: '✝';
+      display: block;
+      font-size: 24px;
+      color: #d4af37;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+      .time-input-group {
+        grid-template-columns: 1fr;
+      }
+      .quick-times {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><span class="cross-icon">✝</span> Email Scheduler</h1>
+    <div class="badge">☁️ Diberkati oleh Kasih Karunia Tuhan - Melayani 24/7</div>
+    <p class="subtitle">Jadwalkan pengingat dan pesan dengan hikmat, diserahkan kepada Tuhan</p>
+
+    <div class="verse-box">
+      <div class="verse-text">
+        "Serahkanlah segala kekuatiranmu kepada-Nya, sebab Ia yang memelihara kamu."
+      </div>
+      <div class="verse-ref">— 1 Petrus 5:7</div>
+    </div>
+
+    <div class="info-box">
+      <h4>Fitur yang Diberikan dengan Kasih Karunia:</h4>
+      <p>✅ Berjalan di server Google Cloud (Tuhan memelihara sistem 24/7)</p>
+      <p>✅ Gratis selamanya - Berkat dari kemurahan Tuhan</p>
+      <p>✅ Email terkirim otomatis pada waktu yang ditentukan</p>
+      <p>✅ Cocok untuk pengingat doa, jadwal pelayanan, dan follow-up jemaat</p>
+    </div>
+
+    <div id="alertContainer"></div>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Memproses...</p>
+    </div>
+
+    <form id="emailForm">
+      <div class="form-group">
+        <label for="emailTo">📮 Email Tujuan</label>
+        <input 
+          type="email" 
+          id="emailTo" 
+          placeholder="contoh@email.com" 
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="subject">📝 Subject Email</label>
+        <input 
+          type="text" 
+          id="subject" 
+          placeholder="Masukkan subject email" 
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="message">✉️ Pesan</label>
+        <textarea 
+          id="message" 
+          placeholder="Tulis pesan yang ingin Anda kirim..."
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>⏰ Waktu Pengiriman</label>
+        <select id="timeMode" onchange="toggleTimeMode()">
+          <option value="delay">Delay (dari sekarang)</option>
+          <option value="specific">Waktu Spesifik</option>
+        </select>
+      </div>
+
+      <div id="delayMode" class="form-group">
+        <div class="time-input-group">
+          <div>
+            <label for="days">Hari</label>
+            <input type="number" id="days" min="0" value="0" placeholder="0">
+          </div>
+          <div>
+            <label for="hours">Jam</label>
+            <input type="number" id="hours" min="0" value="0" placeholder="0">
+          </div>
+          <div>
+            <label for="minutes">Menit</label>
+            <input type="number" id="minutes" min="0" value="30" placeholder="30">
+          </div>
+        </div>
+        <div class="quick-times">
+          <button type="button" class="quick-time-btn" onclick="setQuickTime(0, 0, 10)">10 menit</button>
+          <button type="button" class="quick-time-btn" onclick="setQuickTime(0, 0, 30)">30 menit</button>
+          <button type="button" class="quick-time-btn" onclick="setQuickTime(0, 1, 0)">1 jam</button>
+          <button type="button" class="quick-time-btn" onclick="setQuickTime(0, 6, 0)">6 jam</button>
+          <button type="button" class="quick-time-btn" onclick="setQuickTime(1, 0, 0)">1 hari</button>
+          <button type="button" class="quick-time-btn" onclick="setQuickTime(7, 0, 0)">1 minggu</button>
+          <button type="button" class="quick-time-btn" onclick="setQuickTime(30, 0, 0)">1 bulan</button>
+          <button type="button" class="quick-time-btn" onclick="setQuickTime(365, 0, 0)">1 tahun</button>
+        </div>
+      </div>
+
+      <div id="specificMode" class="form-group" style="display: none;">
+        <label for="specificTime">Tanggal & Waktu</label>
+        <input type="datetime-local" id="specificTime">
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="submitBtn">
+        🙏 Jadwalkan dengan Iman
+      </button>
+    </form>
+
+    <div class="scheduled-list">
+      <h2 style="color: #1e3c72; margin-bottom: 20px;">📅 Pengingat yang Telah Diserahkan</h2>
+      <div id="scheduledContainer">
+        <div class="empty-state">📭 Memuat data...</div>
+      </div>
+    </div>
+
+    <div class="footer-blessing">
+      <strong style="font-size: 16px;">Tuhan memberkati pelayanan Anda</strong>
+      <p style="margin-top: 10px; font-size: 14px; color: #555;">
+        "Karena Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu,<br>
+        demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan."
+      </p>
+      <p style="font-size: 12px; color: #2a5298; margin-top: 5px;">— Yeremia 29:11</p>
+    </div>
+  </div>
+
+  <script>
+    let updateInterval;
+    let currentEmails = [];
+
+    function toggleTimeMode() {
+      const mode = document.getElementById('timeMode').value;
+      document.getElementById('delayMode').style.display = mode === 'delay' ? 'block' : 'none';
+      document.getElementById('specificMode').style.display = mode === 'specific' ? 'block' : 'none';
+    }
+
+    function setQuickTime(days, hours, minutes) {
+      document.getElementById('days').value = days;
+      document.getElementById('hours').value = hours;
+      document.getElementById('minutes').value = minutes;
+      showAlert('⏱️ Waktu diset: ' + formatTime(days, hours, minutes), 'info');
+    }
+
+    function formatTime(days, hours, minutes) {
+      let parts = [];
+      if (days > 0) parts.push(days + ' hari');
+      if (hours > 0) parts.push(hours + ' jam');
+      if (minutes > 0) parts.push(minutes + ' menit');
+      return parts.join(' ') || '0 menit';
+    }
+
+    function showAlert(message, type = 'success') {
+      const alertContainer = document.getElementById('alertContainer');
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type}`;
+      
+      // Tambah emoji Kristiani
+      const prefix = type === 'success' ? '🙏 ' : type === 'error' ? '💫 ' : '✝ ';
+      alert.textContent = prefix + message;
+      
+      alertContainer.appendChild(alert);
+      setTimeout(() => alert.remove(), 5000);
+    }
+
+    function showLoading(show) {
+      document.getElementById('loading').className = show ? 'loading active' : 'loading';
+      document.getElementById('submitBtn').disabled = show;
+    }
+
+    function formatTimeLeft(timestamp) {
+      const now = Date.now();
+      const diff = timestamp - now;
+      
+      if (diff <= 0) return '⏰ Waktunya sekarang!';
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      
+      let result = '⏱️ ';
+      if (days > 0) result += `${days} hari `;
+      if (hours > 0) result += `${hours} jam `;
+      if (minutes > 0 || (days === 0 && hours === 0)) result += `${minutes} menit `;
+      
+      return result.trim();
+    }
+
+    function renderScheduledEmails(data) {
+      const container = document.getElementById('scheduledContainer');
+      
+      if (!data.success || data.emails.length === 0) {
+        container.innerHTML = '<div class="empty-state">🕊️ Belum ada pengingat yang diserahkan kepada Tuhan</div>';
+        return;
+      }
+      
+      currentEmails = data.emails;
+      const now = Date.now();
+      const pendingEmails = data.emails.filter(e => e.status === 'Pending');
+      const otherEmails = data.emails.filter(e => e.status !== 'Pending');
+      const sortedEmails = [...pendingEmails, ...otherEmails];
+      
+      container.innerHTML = sortedEmails.map(email => {
+        const statusClass = email.status.toLowerCase().replace(/[^a-z]/g, '');
+        const itemClass = email.status === 'Terkirim' ? 'sent' : 
+                         email.status === 'Dibatalkan' ? 'dibatalkan' : 
+                         email.status.includes('Error') ? 'error' : '';
+        
+        const showActions = email.status === 'Pending' && email.scheduledTime > now;
+        
+        return `
+          <div class="scheduled-item ${itemClass}">
+            <h3>📧 ${escapeHtml(email.subject)}</h3>
+            <p><strong>Kepada:</strong> ${escapeHtml(email.to)}</p>
+            <p><strong>Pesan:</strong> ${escapeHtml(email.message.substring(0, 150))}${email.message.length > 150 ? '...' : ''}</p>
+            <p><strong>Dijadwalkan:</strong> ${new Date(email.scheduledTime).toLocaleString('id-ID')}</p>
+            <span class="status-badge ${statusClass}">${escapeHtml(email.status)}</span>
+            ${email.status === 'Pending' ? `<div class="time-left">${formatTimeLeft(email.scheduledTime)}</div>` : ''}
+            ${showActions ? `
+              <div class="actions">
+                <button class="btn-small btn-send-now" onclick="sendNow('${email.id}')">
+                  📤 Kirim Sekarang
+                </button>
+                <button class="btn-small btn-cancel" onclick="cancelEmail('${email.id}')">
+                  ❌ Batalkan
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function loadEmails() {
+      google.script.run
+        .withSuccessHandler(renderScheduledEmails)
+        .withFailureHandler(err => {
+          console.error(err);
+          showAlert('Error memuat data: ' + err, 'error');
+        })
+        .processRequest('getList', {});
+    }
+
+    function sendNow(emailId) {
+      if (!confirm('Kirim pengingat ini sekarang dengan berkat Tuhan?')) return;
+      
+      showLoading(true);
+      google.script.run
+        .withSuccessHandler(result => {
+          showLoading(false);
+          if (result.success) {
+            showAlert(result.message, 'success');
+            loadEmails();
+          } else {
+            showAlert(result.message, 'error');
+          }
+        })
+        .withFailureHandler(err => {
+          showLoading(false);
+          showAlert('Error: ' + err, 'error');
+        })
+        .processRequest('sendNow', { id: emailId });
+    }
+
+    function cancelEmail(emailId) {
+      if (!confirm('Batalkan pengingat ini?')) return;
+      
+      showLoading(true);
+      google.script.run
+        .withSuccessHandler(result => {
+          showLoading(false);
+          if (result.success) {
+            showAlert(result.message, 'info');
+            loadEmails();
+          } else {
+            showAlert(result.message, 'error');
+          }
+        })
+        .withFailureHandler(err => {
+          showLoading(false);
+          showAlert('Error: ' + err, 'error');
+        })
+        .processRequest('cancel', { id: emailId });
+    }
+
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const emailTo = document.getElementById('emailTo').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      const timeMode = document.getElementById('timeMode').value;
+      
+      let scheduledTime;
+      
+      if (timeMode === 'delay') {
+        const days = parseInt(document.getElementById('days').value) || 0;
+        const hours = parseInt(document.getElementById('hours').value) || 0;
+        const minutes = parseInt(document.getElementById('minutes').value) || 0;
+        
+        if (days === 0 && hours === 0 && minutes === 0) {
+          showAlert('Mohon masukkan waktu minimal 1 menit untuk menyerahkannya kepada Tuhan', 'error');
+          return;
+        }
+        
+        const delayMs = (days * 24 * 60 * 60 * 1000) + (hours * 60 * 60 * 1000) + (minutes * 60 * 1000);
+        scheduledTime = Date.now() + delayMs;
+      } else {
+        const specificTime = document.getElementById('specificTime').value;
+        if (!specificTime) {
+          showAlert('⚠️ Mohon pilih tanggal dan waktu', 'error');
+          return;
+        }
+        scheduledTime = new Date(specificTime).getTime();
+        
+        if (scheduledTime <= Date.now()) {
+          showAlert('⚠️ Waktu harus di masa depan', 'error');
+          return;
+        }
+      }
+      
+      showLoading(true);
+      
+      google.script.run
+        .withSuccessHandler(result => {
+          showLoading(false);
+          if (result.success) {
+            showAlert(`${result.message} Diserahkan pada: ${new Date(scheduledTime).toLocaleString('id-ID')}. Tuhan memberkati!`, 'success');
+            document.getElementById('emailForm').reset();
+            document.getElementById('days').value = 0;
+            document.getElementById('hours').value = 0;
+            document.getElementById('minutes').value = 30;
+            loadEmails();
+          } else {
+            showAlert(result.message, 'error');
+          }
+        })
+        .withFailureHandler(err => {
+          showLoading(false);
+          showAlert('Error: ' + err, 'error');
+        })
+        .processRequest('schedule', {
+          to: emailTo,
+          subject: subject,
+          message: message,
+          scheduledTime: scheduledTime
+        });
+    });
+
+    // Auto-refresh countdown setiap 30 detik
+    function startAutoRefresh() {
+      loadEmails();
+      updateInterval = setInterval(() => {
+        // Update countdown tanpa reload data
+        if (currentEmails.length > 0) {
+          renderScheduledEmails({ success: true, emails: currentEmails });
+        }
+      }, 30000); // 30 detik
+      
+      // Reload data setiap 2 menit
+      setInterval(loadEmails, 120000);
+    }
+
+    // Initialize
+    startAutoRefresh();
+
+    // Set default datetime
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(9, 0, 0, 0);
+    document.getElementById('specificTime').value = tomorrow.toISOString().slice(0, 16);
+  </script>
+</body>
+</html>
+

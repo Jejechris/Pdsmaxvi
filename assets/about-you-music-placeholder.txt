@@ -1,0 +1,25 @@
+🎵 INSTRUKSI UNTUK LAGU ABOUT YOU - THE 1975:
+
+1. Download lagu "About You" dari The 1975
+2. Ganti nama file ini menjadi salah satu dari:
+   - about-you-1975.mp3 (format MP3)
+   - about-you-1975.ogg (format OGG - opsional)
+3. Lokasi file: assets/about-you-1975.mp3
+
+💡 Cara mendapatkan lagu:
+- Beli dari iTunes/Google Play Store
+- Download dari platform musik legal
+- Convert dari YouTube (jika legal)
+- Atau gunakan file MP3 yang sudah ada
+
+🎧 Fitur musik:
+- Auto-play saat halaman dibuka
+- Tombol play/pause di pojok kanan bawah
+- Loop otomatis
+- Volume control
+- Responsive di mobile
+
+⚠️ Pastikan Anda memiliki hak untuk menggunakan lagu ini!
+
+
+

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Voting - PDSMAXVI</title>
+    <link rel="stylesheet" href="../config/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .admin-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .admin-section h3 {
+            color: var(--purple);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .vote-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .vote-info {
+            flex: 1;
+        }
+        
+        .vote-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-warning {
+            background: #ffc107;
+            color: black;
+        }
+        
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        
+        .status-toggle {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #ccc;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .toggle-switch.active {
+            background: #4CAF50;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(30px);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .clear-all-btn {
+            background: #dc3545;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        .clear-all-btn:hover {
+            background: #c82333;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-cogs"></i> Admin Panel - Voting System</h1>
+            <p>Kelola database voting dan hasil pemilihan</p>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <!-- Statistics -->
+        <div class="admin-section">
+            <h3><i class="fas fa-chart-bar"></i> Statistik Voting</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalVotes">0</div>
+                    <div class="stat-label">Total Suara</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pair1Votes">0</div>
+                    <div class="stat-label">Pasangan 1</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pair2Votes">0</div>
+                    <div class="stat-label">Pasangan 2</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="votingStatus">-</div>
+                    <div class="stat-label">Status Voting</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voting Status Control -->
+        <div class="admin-section">
+            <h3><i class="fas fa-toggle-on"></i> Kontrol Status Voting</h3>
+            <div class="status-toggle">
+                <span>Status Voting:</span>
+                <div class="toggle-switch" id="votingToggle" onclick="toggleVotingStatus()"></div>
+                <span id="statusText">Tutup</span>
+            </div>
+        </div>
+
+        <!-- All Votes -->
+        <div class="admin-section">
+            <h3><i class="fas fa-list"></i> Semua Suara (<span id="voteCount">0</span>)</h3>
+            <div id="votesList">
+                <!-- Votes will be loaded here -->
+            </div>
+            <button class="clear-all-btn" onclick="clearAllVotes()">
+                <i class="fas fa-trash"></i> Hapus Semua Suara
+            </button>
+        </div>
+
+        <!-- Manual Vote -->
+        <div class="admin-section">
+            <h3><i class="fas fa-plus"></i> Tambah Suara Manual</h3>
+            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <select id="manualPair" style="padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                    <option value="pair1">Pasangan 1 (Alexander & Emma)</option>
+                    <option value="pair2">Pasangan 2 (Sarah & David)</option>
+                </select>
+                <button class="btn btn-success" onclick="addManualVote()">
+                    <i class="fas fa-plus"></i> Tambah Suara
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="../scripts/firebase-config.js"></script>
+
+    <script>
+        let adminDatabase;
+        let votingOpen = true;
+
+        // Initialize Firebase
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAdminFirebase();
+            loadAllData();
+            
+            // Update stats every 5 seconds as backup
+            setInterval(() => {
+                if (!adminDatabase) {
+                    // Only for localStorage mode
+                    updateStats();
+                }
+            }, 5000);
+        });
+
+        function initializeAdminFirebase() {
+            try {
+                if (typeof firebase !== 'undefined') {
+                    if (firebase.apps.length === 0) {
+                        firebase.initializeApp({
+                            apiKey: "AIzaSyB3UzjOPcI7fn-u9x_qR7pXzw6EvcDzASU",
+                            authDomain: "pdsmaxvi-ac5fc.firebaseapp.com",
+                            databaseURL: "https://pdsmaxvi-ac5fc-default-rtdb.asia-southeast1.firebasedatabase.app",
+                            projectId: "pdsmaxvi-ac5fc",
+                            storageBucket: "pdsmaxvi-ac5fc.firebasestorage.app",
+                            messagingSenderId: "171752700719",
+                            appId: "1:171752700719:web:5ae803138b320edc1f3fda",
+                            measurementId: "G-DHC6S3XQH7"
+                        });
+                    }
+                    adminDatabase = firebase.database();
+                    console.log('✅ Admin Firebase initialized');
+                } else {
+                    showMessage('Firebase tidak tersedia. Gunakan mode localStorage.', 'error');
+                    loadLocalStorageData();
+                }
+            } catch (error) {
+                console.error('Firebase error:', error);
+                showMessage('Error Firebase: ' + error.message, 'error');
+                loadLocalStorageData();
+            }
+        }
+
+        function loadAllData() {
+            console.log('🔄 Loading all data...');
+            
+            if (adminDatabase) {
+                console.log('🔥 Using Firebase mode');
+                
+                // Load voting status
+                adminDatabase.ref('votingStatus').on('value', snapshot => {
+                    const status = snapshot.val();
+                    if (status) {
+                        votingOpen = status.open;
+                        updateVotingToggle();
+                        console.log('📊 Voting status loaded:', votingOpen);
+                    }
+                });
+
+                // Load all votes
+                adminDatabase.ref('votes').on('value', snapshot => {
+                    const votes = snapshot.val();
+                    console.log('📊 Votes loaded from Firebase:', votes);
+                    displayAllVotes(votes);
+                });
+            } else {
+                console.log('💾 Using localStorage mode');
+                loadLocalStorageData();
+            }
+        }
+
+        function loadLocalStorageData() {
+            console.log('Loading from localStorage...');
+            
+            // Get voting status from localStorage
+            const status = localStorage.getItem('votingStatus');
+            if (status) {
+                votingOpen = JSON.parse(status);
+            }
+            updateVotingToggle();
+            
+            // Get all votes from localStorage
+            const allVotes = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('userVotes_')) {
+                    try {
+                        const vote = JSON.parse(localStorage.getItem(key));
+                        if (vote && vote.pair) {
+                            allVotes[key] = vote;
+                        }
+                    } catch (e) {
+                        console.warn('Error parsing vote:', e);
+                    }
+                }
+            }
+            
+            displayAllVotes(allVotes);
+            updateStats();
+        }
+
+        function displayAllVotes(votes) {
+            const votesList = document.getElementById('votesList');
+            const voteCount = document.getElementById('voteCount');
+            
+            if (!votes || Object.keys(votes).length === 0) {
+                votesList.innerHTML = '<p style="text-align: center; color: #666;">Belum ada suara</p>';
+                voteCount.textContent = '0';
+                // Update stats even when no votes
+                updateStats(votes);
+                return;
+            }
+
+            votesList.innerHTML = '';
+            voteCount.textContent = Object.keys(votes).length;
+
+            Object.entries(votes).forEach(([userId, vote]) => {
+                const voteItem = document.createElement('div');
+                voteItem.className = 'vote-item';
+                
+                const pairName = vote.pair === 'pair1' ? 'Pasangan 1 (Alexander & Emma)' : 'Pasangan 2 (Sarah & David)';
+                const timestamp = new Date().toLocaleString();
+                
+                voteItem.innerHTML = `
+                    <div class="vote-info">
+                        <strong>${pairName}</strong><br>
+                        <small>User: ${userId}</small><br>
+                        <small>Waktu: ${timestamp}</small>
+                    </div>
+                    <div class="vote-actions">
+                        <button class="btn btn-danger" onclick="deleteVote('${userId}')">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                    </div>
+                `;
+                
+                votesList.appendChild(voteItem);
+            });
+            
+            // Update stats with current votes data
+            updateStats(votes);
+        }
+
+        function updateStats(votes = null) {
+            if (!votes && adminDatabase) {
+                // Load votes from Firebase for stats
+                adminDatabase.ref('votes').once('value', snapshot => {
+                    const votesData = snapshot.val();
+                    calculateAndDisplayStats(votesData);
+                });
+            } else if (!votes) {
+                // Load votes from localStorage for stats
+                const votesData = {};
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('userVotes_')) {
+                        try {
+                            const vote = JSON.parse(localStorage.getItem(key));
+                            if (vote && vote.pair) {
+                                votesData[key] = vote;
+                            }
+                        } catch (e) {
+                            console.warn('Error parsing vote:', e);
+                        }
+                    }
+                }
+                calculateAndDisplayStats(votesData);
+            } else {
+                calculateAndDisplayStats(votes);
+            }
+        }
+
+        function calculateAndDisplayStats(votes) {
+            let totalVotes = 0;
+            let pair1Votes = 0;
+            let pair2Votes = 0;
+            
+            if (votes) {
+                totalVotes = Object.keys(votes).length;
+                
+                Object.values(votes).forEach(vote => {
+                    if (vote && vote.pair) {
+                        if (vote.pair === 'pair1') {
+                            pair1Votes++;
+                        } else if (vote.pair === 'pair2') {
+                            pair2Votes++;
+                        }
+                    }
+                });
+            }
+            
+            // Update UI
+            document.getElementById('totalVotes').textContent = totalVotes;
+            document.getElementById('pair1Votes').textContent = pair1Votes;
+            document.getElementById('pair2Votes').textContent = pair2Votes;
+            document.getElementById('votingStatus').textContent = votingOpen ? 'Buka' : 'Tutup';
+            
+            console.log(`📊 Stats updated: Total=${totalVotes}, Pair1=${pair1Votes}, Pair2=${pair2Votes}, Status=${votingOpen ? 'Open' : 'Closed'}`);
+        }
+
+        function deleteVote(userId) {
+            if (confirm('Yakin ingin menghapus suara ini?')) {
+                if (adminDatabase) {
+                    adminDatabase.ref('votes/' + userId).remove()
+                        .then(() => {
+                            showMessage('Suara berhasil dihapus!', 'success');
+                            // Stats will be updated automatically via Firebase listener
+                        })
+                        .catch(error => {
+                            showMessage('Error: ' + error.message, 'error');
+                        });
+                } else {
+                    // LocalStorage mode
+                    localStorage.removeItem(userId);
+                    loadLocalStorageData();
+                    showMessage('Suara berhasil dihapus!', 'success');
+                }
+            }
+        }
+
+        function clearAllVotes() {
+            if (confirm('YAKIN ingin menghapus SEMUA suara? Tindakan ini tidak dapat dibatalkan!')) {
+                if (adminDatabase) {
+                    adminDatabase.ref('votes').remove()
+                        .then(() => {
+                            showMessage('Semua suara berhasil dihapus!', 'success');
+                            // Stats will be updated automatically via Firebase listener
+                        })
+                        .catch(error => {
+                            showMessage('Error: ' + error.message, 'error');
+                        });
+                } else {
+                    // LocalStorage mode
+                    const keysToRemove = [];
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key && key.startsWith('userVotes_')) {
+                            keysToRemove.push(key);
+                        }
+                    }
+                    keysToRemove.forEach(key => localStorage.removeItem(key));
+                    loadLocalStorageData();
+                    showMessage('Semua suara berhasil dihapus!', 'success');
+                }
+            }
+        }
+
+        function toggleVotingStatus() {
+            votingOpen = !votingOpen;
+            
+            if (adminDatabase) {
+                adminDatabase.ref('votingStatus').set({ open: votingOpen })
+                    .then(() => {
+                        showMessage(`Voting ${votingOpen ? 'dibuka' : 'ditutup'}!`, 'success');
+                        updateVotingToggle();
+                    })
+                    .catch(error => {
+                        showMessage('Error: ' + error.message, 'error');
+                    });
+            } else {
+                // LocalStorage mode
+                localStorage.setItem('votingStatus', JSON.stringify(votingOpen));
+                showMessage(`Voting ${votingOpen ? 'dibuka' : 'ditutup'}!`, 'success');
+                updateVotingToggle();
+            }
+        }
+
+        function updateVotingToggle() {
+            const toggle = document.getElementById('votingToggle');
+            const statusText = document.getElementById('statusText');
+            
+            if (votingOpen) {
+                toggle.classList.add('active');
+                statusText.textContent = 'Buka';
+            } else {
+                toggle.classList.remove('active');
+                statusText.textContent = 'Tutup';
+            }
+        }
+
+        function addManualVote() {
+            const selectedPair = document.getElementById('manualPair').value;
+            const userId = 'manual_' + Date.now();
+            
+            const vote = {
+                pair: selectedPair,
+                ketua: selectedPair === 'pair1' ? 'ketua1' : 'ketua2',
+                wakil: selectedPair === 'pair1' ? 'wakil1' : 'wakil2'
+            };
+            
+            if (adminDatabase) {
+                adminDatabase.ref('votes/' + userId).set(vote)
+                    .then(() => {
+                        showMessage('Suara manual berhasil ditambahkan!', 'success');
+                        // Stats will be updated automatically via Firebase listener
+                    })
+                    .catch(error => {
+                        showMessage('Error: ' + error.message, 'error');
+                    });
+            } else {
+                // LocalStorage mode
+                localStorage.setItem('userVotes_' + userId, JSON.stringify(vote));
+                loadLocalStorageData();
+                showMessage('Suara manual berhasil ditambahkan!', 'success');
+            }
+        }
+
+        function showMessage(text, type) {
+            const message = document.getElementById('message');
+            message.textContent = text;
+            message.className = `message ${type}`;
+            message.style.display = 'block';
+            
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
